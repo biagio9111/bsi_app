@@ -1,27 +1,117 @@
-<h2>BSI App Web</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BSI App</title>
 
-<select id="nome">
-  <option>Biagio</option>
-  <option>Rocco</option>
-</select>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
 
-<br>
+  <style>
+    body {
+      background: #0C172A;
+      font-family: Arial;
+      text-align: center;
+      color: white;
+    }
 
-<select id="mezzo">
-  <option>Furgone</option>
-  <option>Auto</option>
-</select>
+    .card {
+      background: #1E2A47;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+    }
 
-<br>
+    input, select {
+      width: 80%;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      border: none;
+    }
 
-<input type="text" id="paga" placeholder="Inserisci paga">
+    button {
+      background: #2ECC71;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      width: 80%;
+      font-size: 16px;
+    }
 
-<br>
+    button:hover {
+      background: #27AE60;
+    }
+  </style>
+</head>
 
-<button onclick="salva()">Salva</button>
+<body>
 
-<h3>Dati salvati</h3>
+  <h2>BSI APP</h2>
 
-<p id="out_nome">Nome: -</p>
-<p id="out_mezzo">Mezzo: -</p>
-<p id="out_paga">Paga: -</p>
+  <div class="card">
+
+    <select id="nome">
+      <option>Biagio</option>
+      <option>Rocco</option>
+    </select>
+
+    <select id="mezzo">
+      <option>Furgone</option>
+      <option>Auto</option>
+    </select>
+
+    <input type="text" id="paga" placeholder="Inserisci paga">
+
+    <button onclick="salva()">Salva</button>
+
+  </div>
+
+  <div class="card">
+    <h3>Dati salvati</h3>
+
+    <p id="out_nome">Nome: -</p>
+    <p id="out_mezzo">Mezzo: -</p>
+    <p id="out_paga">Paga: -</p>
+  </div>
+
+<script>
+
+var firebaseConfig = {
+  apiKey: "TUO_API_KEY",
+  authDomain: "TUO_PROGETTO.firebaseapp.com",
+  databaseURL: "TUO_URL_FIREBASE",
+  projectId: "TUO_PROGETTO",
+};
+
+firebase.initializeApp(firebaseConfig);
+
+function salva() {
+
+  var nome = document.getElementById("nome").value;
+  var mezzo = document.getElementById("mezzo").value;
+  var paga = document.getElementById("paga").value;
+
+  firebase.database().ref("lavoro").set({
+    nome: nome,
+    mezzo: mezzo,
+    paga: paga
+  });
+}
+
+firebase.database().ref("lavoro").on("value", function(snapshot) {
+
+  var data = snapshot.val();
+
+  if(data){
+    document.getElementById("out_nome").innerText = "Nome: " + data.nome;
+    document.getElementById("out_mezzo").innerText = "Mezzo: " + data.mezzo;
+    document.getElementById("out_paga").innerText = "Paga: " + data.paga;
+  }
+
+});
+
+</script>
+
+</body>
+</html>
