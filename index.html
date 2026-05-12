@@ -495,8 +495,35 @@ malattiaA: document.getElementById("malattiaA").value
 
 }
 
+function listaSicura(v){
 
+if(Array.isArray(v)){
 
+return v;
+
+}
+
+return [];
+
+}
+
+  function testoSicuro(v){
+
+if(v == null){
+
+return "";
+
+}
+
+if(v == undefined){
+
+return "";
+
+}
+
+return String(v);
+
+  }
   
 function salvaGiornata(){
 
@@ -553,32 +580,28 @@ listaRigheOperai.push(riga);
 });
 
 
-if(!Array.isArray(furgoniCantiere)){
 
-furgoniCantiere = [];
-
-}
 
 
 let giornata = [
 
-document.getElementById("data").value,
+testoSicuro(document.getElementById("data").value),
 
-document.getElementById("cliente").value,
+testoSicuro(document.getElementById("cliente").value),
 
-document.getElementById("cantiere").value,
+testoSicuro(document.getElementById("cantiere").value),
 
-furgoniCantiere,
+listaSicura(furgoniCantiere),
 
-document.getElementById("guidatore").value,
+testoSicuro(document.getElementById("guidatore").value),
 
-document.getElementById("ore").value,
+testoSicuro(document.getElementById("ore").value),
 
-document.getElementById("note").value,
+testoSicuro(document.getElementById("note").value),
 
-operaiCantiere,
+listaSicura(operaiCantiere),
 
-listaRigheOperai
+listaSicura(listaRigheOperai)
 
 ];
 
