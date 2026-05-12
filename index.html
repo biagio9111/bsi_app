@@ -1,117 +1,433 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
+
 <head>
-  <title>BSI App</title>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      background: #0C172A;
-      font-family: Arial;
-      text-align: center;
-      color: white;
-    }
+<title>BSI CANTIERE</title>
 
-    .card {
-      background: #1E2A47;
-      padding: 20px;
-      margin: 20px;
-      border-radius: 15px;
-      box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
-    }
+<link rel="stylesheet" href="style.css">
 
-    input, select {
-      width: 80%;
-      padding: 10px;
-      margin: 10px;
-      border-radius: 10px;
-      border: none;
-    }
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    button {
-      background: #2ECC71;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      width: 80%;
-      font-size: 16px;
-    }
-
-    button:hover {
-      background: #27AE60;
-    }
-  </style>
 </head>
 
 <body>
 
-  <h2>BSI APP</h2>
+<div class="container">
 
-  <div class="card">
+<h1>BSI CANTIERE</h1>
 
-    <select id="nome">
-      <option>Biagio</option>
-      <option>Rocco</option>
-    </select>
 
-    <select id="mezzo">
-      <option>Furgone</option>
-      <option>Auto</option>
-    </select>
+<div class="card">
 
-    <input type="text" id="paga" placeholder="Inserisci paga">
+<h2>NUOVA GIORNATA</h2>
 
-    <button onclick="salva()">Salva</button>
+<input type="date" id="data">
 
-  </div>
+<input type="text" id="cliente" placeholder="Cliente">
 
-  <div class="card">
-    <h3>Dati salvati</h3>
+<input type="text" id="cantiere" placeholder="Cantiere">
 
-    <p id="out_nome">Nome: -</p>
-    <p id="out_mezzo">Mezzo: -</p>
-    <p id="out_paga">Paga: -</p>
-  </div>
+<input type="text" id="operai" placeholder="Operai separati da virgola">
 
-<script>
+<input type="text" id="furgoni" placeholder="Furgoni separati da virgola">
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBd8kyuAPFWLiqo7v7KpA4eIa8zmmJXY4o",
-  authDomain: "inventario-deposito-careni.firebaseapp.com",
-  databaseURL: "https://inventario-deposito-careni-default-rtdb.firebaseio.com",
-  projectId: "inventario-deposito-careni",
+<input type="text" id="guidatore" placeholder="Guidatore">
+
+<input type="number" id="ore" placeholder="Ore">
+
+<input type="text" id="note" placeholder="Note">
+
+<button onclick="salvaGiornata()">
+SALVA GIORNATA
+</button>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>OPZIONI OPERAIO</h2>
+
+<select id="operaioOpzioni"></select>
+
+<input type="number" id="paga" placeholder="Paga">
+
+<input type="number" id="trasfertaValore" placeholder="Trasferta">
+
+<label>
+<input type="checkbox" id="flagTrasferta">
+Trasferta
+</label>
+
+<label>
+<input type="checkbox" id="flagAssenza">
+Assenza
+</label>
+
+<input type="date" id="assenzaDa">
+<input type="date" id="assenzaA">
+
+<label>
+<input type="checkbox" id="flagFerie">
+Ferie
+</label>
+
+<input type="date" id="ferieDa">
+<input type="date" id="ferieA">
+
+<label>
+<input type="checkbox" id="flagMalattia">
+Malattia
+</label>
+
+<input type="date" id="malattiaDa">
+<input type="date" id="malattiaA">
+
+<button onclick="salvaOpzioniOperaio()">
+SALVA OPZIONI
+</button>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>STORICO OPERAIO</h2>
+
+<input type="text" id="filtroOperaio" placeholder="Nome operaio">
+
+<button onclick="filtraOperaio()">
+CERCA
+</button>
+
+<div id="storico"></div>
+
+</div>
+
+</div>
+
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
+body{
+
+background:#0f172a;
+font-family:Arial;
+margin:0;
+padding:0;
+color:white;
+
+}
+
+.container{
+
+width:95%;
+margin:auto;
+padding:20px;
+
+}
+
+.card{
+
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+
+}
+
+input,
+select{
+
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+font-size:16px;
+
+}
+
+button{
+
+width:100%;
+padding:14px;
+margin-top:15px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:10px;
+font-size:16px;
+
+}
+
+.item{
+
+background:#334155;
+padding:15px;
+border-radius:10px;
+margin-top:10px;
+
+}
+const firebaseConfig = {
+
+apiKey: "TUA_API_KEY",
+
+authDomain: "inventario-deposito-careni.firebaseapp.com",
+
+databaseURL: "https://inventario-deposito-careni-default-rtdb.firebaseio.com",
+
+projectId: "inventario-deposito-careni",
+
+storageBucket: "inventario-deposito-careni.appspot.com",
+
+messagingSenderId: "XXXX",
+
+appId: "XXXX"
+
 };
 
 firebase.initializeApp(firebaseConfig);
 
-function salva() {
+const db = firebase.database();
+function salvaGiornata(){
 
-  var nome = document.getElementById("nome").value;
-  var mezzo = document.getElementById("mezzo").value;
-  var paga = document.getElementById("paga").value;
+let data = document.getElementById("data").value;
+let cliente = document.getElementById("cliente").value;
+let cantiere = document.getElementById("cantiere").value;
 
-  firebase.database().ref("lavoro").set({
-    nome: nome,
-    mezzo: mezzo,
-    paga: paga
-  });
-}
+let operai = document.getElementById("operai").value.split(",");
 
-firebase.database().ref("lavoro").on("value", function(snapshot) {
+let furgoni = document.getElementById("furgoni").value.split(",");
 
-  var data = snapshot.val();
+let guidatore = document.getElementById("guidatore").value;
 
-  if(data){
-    document.getElementById("out_nome").innerText = "Nome: " + data.nome;
-    document.getElementById("out_mezzo").innerText = "Mezzo: " + data.mezzo;
-    document.getElementById("out_paga").innerText = "Paga: " + data.paga;
-  }
+let ore = document.getElementById("ore").value;
+
+let note = document.getElementById("note").value;
+
+
+
+let lista_operai = [];
+
+
+
+operai.forEach(op => {
+
+op = op.trim();
+
+lista_operai.push([
+
+op,
+"0",
+
+"no",
+"0",
+
+"no",
+"",
+"",
+
+"no",
+"",
+"",
+
+"no",
+"",
+""
+
+]);
 
 });
 
-</script>
 
-</body>
-</html>
+
+let giornata = [
+
+data,
+cliente,
+cantiere,
+furgoni,
+operai,
+guidatore,
+ore,
+note,
+lista_operai
+
+];
+
+
+
+db.ref("giornate").once("value", snapshot => {
+
+let lista = snapshot.val() || [];
+
+lista.push(giornata);
+
+db.ref("giornate").set(lista);
+
+alert("GIORNATA SALVATA");
+
+});
+
+}
+
+
+
+
+
+function salvaOpzioniOperaio(){
+
+let nome = document.getElementById("operaioOpzioni").value;
+
+let paga = document.getElementById("paga").value;
+
+let trasferta =
+document.getElementById("flagTrasferta").checked ? "si" : "no";
+
+let trasfertaValore =
+document.getElementById("trasfertaValore").value;
+
+let assenza =
+document.getElementById("flagAssenza").checked ? "si" : "no";
+
+let assenzaDa =
+document.getElementById("assenzaDa").value;
+
+let assenzaA =
+document.getElementById("assenzaA").value;
+
+let ferie =
+document.getElementById("flagFerie").checked ? "si" : "no";
+
+let ferieDa =
+document.getElementById("ferieDa").value;
+
+let ferieA =
+document.getElementById("ferieA").value;
+
+let malattia =
+document.getElementById("flagMalattia").checked ? "si" : "no";
+
+let malattiaDa =
+document.getElementById("malattiaDa").value;
+
+let malattiaA =
+document.getElementById("malattiaA").value;
+
+
+
+let dati = [
+
+nome,
+paga,
+
+trasferta,
+trasfertaValore,
+
+assenza,
+assenzaDa,
+assenzaA,
+
+ferie,
+ferieDa,
+ferieA,
+
+malattia,
+malattiaDa,
+malattiaA
+
+];
+
+
+
+db.ref("opzioni_" + nome).set(dati);
+
+db.ref("paga_" + nome).set(paga);
+
+alert("OPZIONI SALVATE");
+
+}
+
+
+
+
+
+function filtraOperaio(){
+
+let ricerca =
+document.getElementById("filtroOperaio").value;
+
+db.ref("giornate").once("value", snapshot => {
+
+let lista = snapshot.val() || [];
+
+let html = "";
+
+lista.forEach(g => {
+
+let listaOperai = g[8];
+
+listaOperai.forEach(riga => {
+
+if(riga[0] == ricerca){
+
+html += `
+
+<div class="item">
+
+<b>DATA:</b> ${g[0]}<br>
+<b>CLIENTE:</b> ${g[1]}<br>
+<b>CANTIERE:</b> ${g[2]}<br>
+<b>GUIDATORE:</b> ${g[5]}<br>
+<b>ORE:</b> ${g[6]}<br>
+<b>NOTE:</b> ${g[7]}<br><br>
+
+<b>NOME:</b> ${riga[0]}<br>
+<b>PAGA:</b> ${riga[1]}<br>
+<b>TRASFERTA:</b> ${riga[2]}<br>
+
+</div>
+
+`;
+
+}
+
+});
+
+});
+
+document.getElementById("storico").innerHTML = html;
+
+});
+
+}
+
+
+
+
+
+db.ref("operai").on("value", snapshot => {
+
+let lista = snapshot.val() || [];
+
+let html = "";
+
+lista.forEach(op => {
+
+html += `<option value="${op}">${op}</option>`;
+
+});
+
+document.getElementById("operaioOpzioni").innerHTML = html;
+
+});
