@@ -304,11 +304,23 @@ m.style.display = "block";
 
 
 function aggiungiOperaio(){
-
 let nome = document.getElementById("nomeOperaio").value;
 
-db.ref("lavoro/operai").push(nome);
+db.ref("lavoro/operai").once("value", snapshot => {
 
+let lista = snapshot.val() || [];
+
+if(!Array.isArray(lista)){
+
+lista = [];
+
+}
+
+lista.push(nome);
+
+db.ref("lavoro/operai").set(lista);
+
+});
 }
 
 
@@ -509,7 +521,21 @@ opzioni: datiOperai
 
 };
 
-db.ref("lavoro/giornate").push(giornata);
+db.ref("lavoro/giornate").once("value", snapshot => {
+
+let lista = snapshot.val() || [];
+
+if(!Array.isArray(lista)){
+
+lista = [];
+
+}
+
+lista.push(giornata);
+
+db.ref("lavoro/giornate").set(lista);
+
+});
 
 alert("GIORNATA SALVATA");
 
