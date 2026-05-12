@@ -8,18 +8,150 @@
 
 <title>BSI CANTIERE</title>
 
-<link rel="stylesheet" href="style.css">
-
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<style>
+
+body{
+
+background:#0F172A;
+font-family:Arial;
+margin:0;
+padding:0;
+color:white;
+
+}
+
+.header{
+
+background:#1E293B;
+padding:20px;
+font-size:28px;
+font-weight:bold;
+text-align:center;
+
+}
+
+.container{
+
+padding:15px;
+
+}
+
+.card{
+
+background:#1E293B;
+padding:15px;
+border-radius:15px;
+margin-bottom:20px;
+
+}
+
+input,
+select,
+button{
+
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+font-size:16px;
+box-sizing:border-box;
+
+}
+
+button{
+
+background:#2563EB;
+color:white;
+font-weight:bold;
+
+}
+
+.menu{
+
+display:none;
+
+}
+
+.row{
+
+display:flex;
+gap:10px;
+
+}
+
+.col{
+
+flex:1;
+
+}
+
+.labelbox{
+
+background:#111827;
+padding:10px;
+border-radius:10px;
+white-space:pre-wrap;
+min-height:300px;
+overflow:auto;
+
+}
+
+.check{
+
+margin-top:15px;
+
+}
+
+</style>
 
 </head>
 
 <body>
 
+<div class="header">
+BSI CANTIERE
+</div>
+
 <div class="container">
 
-<h1>BSI CANTIERE</h1>
+
+
+<div class="card">
+
+<button onclick="apriMenu()">
+MENU OPERAI
+</button>
+
+<div class="menu" id="menuOperai">
+
+<input type="text" id="nomeOperaio" placeholder="Nome operaio">
+
+<button onclick="aggiungiOperaio()">
+AGGIUNGI OPERAIO
+</button>
+
+<select id="operaioModifica"></select>
+
+<input type="number" id="paga" placeholder="Paga">
+
+<input type="number" id="trasfertaValore" placeholder="Trasferta">
+
+<button onclick="salvaPagaTrasferta()">
+SALVA PAGA E TRASFERTA
+</button>
+
+<button onclick="eliminaOperaio()">
+ELIMINA OPERAIO
+</button>
+
+</div>
+
+</div>
+
 
 
 <div class="card">
@@ -32,15 +164,68 @@
 
 <input type="text" id="cantiere" placeholder="Cantiere">
 
-<input type="text" id="operai" placeholder="Operai separati da virgola">
+<select id="selettoreOperai"></select>
 
-<input type="text" id="furgoni" placeholder="Furgoni separati da virgola">
+<button onclick="aggiungiOperaioCantiere()">
+AGGIUNGI OPERAIO AL CANTIERE
+</button>
 
-<input type="text" id="guidatore" placeholder="Guidatore">
+<input type="text" id="furgoneInput" placeholder="Aggiungi furgone">
+
+<button onclick="aggiungiFurgone()">
+AGGIUNGI FURGONE
+</button>
+
+<select id="selettoreFurgoni"></select>
+
+<select id="guidatore"></select>
 
 <input type="number" id="ore" placeholder="Ore">
 
 <input type="text" id="note" placeholder="Note">
+
+<select id="operaiAggiunti"></select>
+
+<button onclick="apriOpzioniOperaio()">
+OPZIONI OPERAIO
+</button>
+
+<div id="opzioniOperaio" style="display:none;">
+
+<div class="check">
+<input type="checkbox" id="flagTrasferta">
+TRASFERTA
+</div>
+
+<div class="check">
+<input type="checkbox" id="flagAssenza">
+ASSENZA
+</div>
+
+<input type="date" id="assenzaDa">
+<input type="date" id="assenzaA">
+
+<div class="check">
+<input type="checkbox" id="flagFerie">
+FERIE
+</div>
+
+<input type="date" id="ferieDa">
+<input type="date" id="ferieA">
+
+<div class="check">
+<input type="checkbox" id="flagMalattia">
+MALATTIA
+</div>
+
+<input type="date" id="malattiaDa">
+<input type="date" id="malattiaA">
+
+<button onclick="salvaOpzioniOperaio()">
+SALVA OPZIONI
+</button>
+
+</div>
 
 <button onclick="salvaGiornata()">
 SALVA GIORNATA
@@ -52,132 +237,32 @@ SALVA GIORNATA
 
 <div class="card">
 
-<h2>OPZIONI OPERAIO</h2>
+<h2>SCREEN 2</h2>
 
-<select id="operaioOpzioni"></select>
+<select id="filtroOperaio" onchange="filtraOperaio()"></select>
 
-<input type="number" id="paga" placeholder="Paga">
+<select id="filtroCantiere"></select>
 
-<input type="number" id="trasfertaValore" placeholder="Trasferta">
+<div class="row">
 
-<label>
-<input type="checkbox" id="flagTrasferta">
-Trasferta
-</label>
-
-<label>
-<input type="checkbox" id="flagAssenza">
-Assenza
-</label>
-
-<input type="date" id="assenzaDa">
-<input type="date" id="assenzaA">
-
-<label>
-<input type="checkbox" id="flagFerie">
-Ferie
-</label>
-
-<input type="date" id="ferieDa">
-<input type="date" id="ferieA">
-
-<label>
-<input type="checkbox" id="flagMalattia">
-Malattia
-</label>
-
-<input type="date" id="malattiaDa">
-<input type="date" id="malattiaA">
-
-<button onclick="salvaOpzioniOperaio()">
-SALVA OPZIONI
-</button>
-
+<div class="col">
+<div class="labelbox" id="labelSinistra"></div>
 </div>
 
+<div class="col">
+<div class="labelbox" id="labelDestra"></div>
+</div>
 
-
-<div class="card">
-
-<h2>STORICO OPERAIO</h2>
-
-<input type="text" id="filtroOperaio" placeholder="Nome operaio">
-
-<button onclick="filtraOperaio()">
-CERCA
-</button>
-
-<div id="storico"></div>
+</div>
 
 </div>
 
 </div>
 
-<script src="firebase-config.js"></script>
-<script src="app.js"></script>
 
-</body>
-</html>
-body{
 
-background:#0f172a;
-font-family:Arial;
-margin:0;
-padding:0;
-color:white;
+<script>
 
-}
-
-.container{
-
-width:95%;
-margin:auto;
-padding:20px;
-
-}
-
-.card{
-
-background:#1e293b;
-padding:20px;
-border-radius:15px;
-margin-bottom:20px;
-
-}
-
-input,
-select{
-
-width:100%;
-padding:12px;
-margin-top:10px;
-border:none;
-border-radius:10px;
-font-size:16px;
-
-}
-
-button{
-
-width:100%;
-padding:14px;
-margin-top:15px;
-background:#2563eb;
-color:white;
-border:none;
-border-radius:10px;
-font-size:16px;
-
-}
-
-.item{
-
-background:#334155;
-padding:15px;
-border-radius:10px;
-margin-top:10px;
-
-}
 const firebaseConfig = {
 
 apiKey: "AIzaSyBd8kyuAPFWLiqo7v7KpA4eIa8zmmJXY4o",
@@ -199,214 +284,46 @@ appId: "1:1067050806419:web:2004fc2b78388aeb84f166"
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
-function salvaGiornata(){
-
-let data = document.getElementById("data").value;
-let cliente = document.getElementById("cliente").value;
-let cantiere = document.getElementById("cantiere").value;
-
-let operai = document.getElementById("operai").value.split(",");
-
-let furgoni = document.getElementById("furgoni").value.split(",");
-
-let guidatore = document.getElementById("guidatore").value;
-
-let ore = document.getElementById("ore").value;
-
-let note = document.getElementById("note").value;
 
 
 
-let lista_operai = [];
+let operaiCantiere = [];
+let furgoniCantiere = [];
+let datiOperai = {};
 
 
 
-operai.forEach(op => {
+function apriMenu(){
 
-op = op.trim();
+let m = document.getElementById("menuOperai");
 
-lista_operai.push([
+if(m.style.display == "block"){
 
-op,
-"0",
+m.style.display = "none";
 
-"no",
-"0",
+}else{
 
-"no",
-"",
-"",
+m.style.display = "block";
 
-"no",
-"",
-"",
+}
 
-"no",
-"",
-""
-
-]);
-
-});
+}
 
 
 
-let giornata = [
+function aggiungiOperaio(){
 
-data,
-cliente,
-cantiere,
-furgoni,
-operai,
-guidatore,
-ore,
-note,
-lista_operai
+let nome = document.getElementById("nomeOperaio").value;
 
-];
-
-
-
-db.ref("giornate").once("value", snapshot => {
+db.ref("operai").once("value", snapshot => {
 
 let lista = snapshot.val() || [];
 
-lista.push(giornata);
+lista.push(nome);
 
-db.ref("giornate").set(lista);
+db.ref("operai").set(lista);
 
-alert("GIORNATA SALVATA");
-
-});
-
-}
-
-
-
-
-
-function salvaOpzioniOperaio(){
-
-let nome = document.getElementById("operaioOpzioni").value;
-
-let paga = document.getElementById("paga").value;
-
-let trasferta =
-document.getElementById("flagTrasferta").checked ? "si" : "no";
-
-let trasfertaValore =
-document.getElementById("trasfertaValore").value;
-
-let assenza =
-document.getElementById("flagAssenza").checked ? "si" : "no";
-
-let assenzaDa =
-document.getElementById("assenzaDa").value;
-
-let assenzaA =
-document.getElementById("assenzaA").value;
-
-let ferie =
-document.getElementById("flagFerie").checked ? "si" : "no";
-
-let ferieDa =
-document.getElementById("ferieDa").value;
-
-let ferieA =
-document.getElementById("ferieA").value;
-
-let malattia =
-document.getElementById("flagMalattia").checked ? "si" : "no";
-
-let malattiaDa =
-document.getElementById("malattiaDa").value;
-
-let malattiaA =
-document.getElementById("malattiaA").value;
-
-
-
-let dati = [
-
-nome,
-paga,
-
-trasferta,
-trasfertaValore,
-
-assenza,
-assenzaDa,
-assenzaA,
-
-ferie,
-ferieDa,
-ferieA,
-
-malattia,
-malattiaDa,
-malattiaA
-
-];
-
-
-
-db.ref("opzioni_" + nome).set(dati);
-
-db.ref("paga_" + nome).set(paga);
-
-alert("OPZIONI SALVATE");
-
-}
-
-
-
-
-
-function filtraOperaio(){
-
-let ricerca =
-document.getElementById("filtroOperaio").value;
-
-db.ref("giornate").once("value", snapshot => {
-
-let lista = snapshot.val() || [];
-
-let html = "";
-
-lista.forEach(g => {
-
-let listaOperai = g[8];
-
-listaOperai.forEach(riga => {
-
-if(riga[0] == ricerca){
-
-html += `
-
-<div class="item">
-
-<b>DATA:</b> ${g[0]}<br>
-<b>CLIENTE:</b> ${g[1]}<br>
-<b>CANTIERE:</b> ${g[2]}<br>
-<b>GUIDATORE:</b> ${g[5]}<br>
-<b>ORE:</b> ${g[6]}<br>
-<b>NOTE:</b> ${g[7]}<br><br>
-
-<b>NOME:</b> ${riga[0]}<br>
-<b>PAGA:</b> ${riga[1]}<br>
-<b>TRASFERTA:</b> ${riga[2]}<br>
-
-</div>
-
-`;
-
-}
-
-});
-
-});
-
-document.getElementById("storico").innerHTML = html;
+caricaOperai();
 
 });
 
@@ -414,7 +331,7 @@ document.getElementById("storico").innerHTML = html;
 
 
 
-
+function caricaOperai(){
 
 db.ref("operai").on("value", snapshot => {
 
@@ -428,6 +345,226 @@ html += `<option value="${op}">${op}</option>`;
 
 });
 
-document.getElementById("operaioOpzioni").innerHTML = html;
+document.getElementById("operaioModifica").innerHTML = html;
+document.getElementById("selettoreOperai").innerHTML = html;
+document.getElementById("filtroOperaio").innerHTML = html;
 
 });
+
+}
+
+caricaOperai();
+
+
+
+function salvaPagaTrasferta(){
+
+let nome = document.getElementById("operaioModifica").value;
+
+let paga = document.getElementById("paga").value;
+
+let trasferta = document.getElementById("trasfertaValore").value;
+
+db.ref("paga_" + nome).set(paga);
+
+db.ref("trasferta_" + nome).set(trasferta);
+
+}
+
+
+
+function eliminaOperaio(){
+
+let nome = document.getElementById("operaioModifica").value;
+
+db.ref("operai").once("value", snapshot => {
+
+let lista = snapshot.val() || [];
+
+lista = lista.filter(op => op != nome);
+
+db.ref("operai").set(lista);
+
+});
+
+}
+
+
+
+function aggiungiOperaioCantiere(){
+
+let op = document.getElementById("selettoreOperai").value;
+
+operaiCantiere.push(op);
+
+aggiornaOperaiAggiunti();
+
+}
+
+
+
+function aggiornaOperaiAggiunti(){
+
+let html = "";
+
+operaiCantiere.forEach(op => {
+
+html += `<option value="${op}">${op}</option>`;
+
+});
+
+document.getElementById("operaiAggiunti").innerHTML = html;
+document.getElementById("guidatore").innerHTML = html;
+
+}
+
+
+
+function aggiungiFurgone(){
+
+let f = document.getElementById("furgoneInput").value;
+
+furgoniCantiere.push(f);
+
+let html = "";
+
+furgoniCantiere.forEach(ff => {
+
+html += `<option>${ff}</option>`;
+
+});
+
+document.getElementById("selettoreFurgoni").innerHTML = html;
+
+}
+
+
+
+function apriOpzioniOperaio(){
+
+let div = document.getElementById("opzioniOperaio");
+
+if(div.style.display == "block"){
+
+div.style.display = "none";
+
+}else{
+
+div.style.display = "block";
+
+}
+
+}
+
+
+
+function salvaOpzioniOperaio(){
+
+let nome = document.getElementById("operaiAggiunti").value;
+
+datiOperai[nome] = {
+
+trasferta: document.getElementById("flagTrasferta").checked,
+assenza: document.getElementById("flagAssenza").checked,
+assenzaDa: document.getElementById("assenzaDa").value,
+assenzaA: document.getElementById("assenzaA").value,
+ferie: document.getElementById("flagFerie").checked,
+ferieDa: document.getElementById("ferieDa").value,
+ferieA: document.getElementById("ferieA").value,
+malattia: document.getElementById("flagMalattia").checked,
+malattiaDa: document.getElementById("malattiaDa").value,
+malattiaA: document.getElementById("malattiaA").value
+
+};
+
+}
+
+
+
+function salvaGiornata(){
+
+let giornata = {
+
+data: document.getElementById("data").value,
+cliente: document.getElementById("cliente").value,
+cantiere: document.getElementById("cantiere").value,
+operai: operaiCantiere,
+furgoni: furgoniCantiere,
+guidatore: document.getElementById("guidatore").value,
+ore: document.getElementById("ore").value,
+note: document.getElementById("note").value,
+opzioni: datiOperai
+
+};
+
+db.ref("giornate").push(giornata);
+
+alert("GIORNATA SALVATA");
+
+}
+
+
+
+function filtraOperaio(){
+
+let op = document.getElementById("filtroOperaio").value;
+
+db.ref("giornate").once("value", snapshot => {
+
+let dati = snapshot.val();
+
+let sx = "";
+let dx = "";
+
+for(let id in dati){
+
+let g = dati[id];
+
+if(g.operai.includes(op)){
+
+sx +=
+"----------------\n"+
+"DATA : " + g.data + "\n"+
+"CLIENTE : " + g.cliente + "\n"+
+"CANTIERE : " + g.cantiere + "\n"+
+"FURGONI : " + g.furgoni + "\n"+
+"GUIDATORE : " + g.guidatore + "\n"+
+"ORE : " + g.ore + "\n"+
+"NOTE : " + g.note + "\n\n";
+
+
+
+db.ref("paga_" + op).once("value", p => {
+
+let paga = p.val() || "0";
+
+db.ref("trasferta_" + op).once("value", t => {
+
+let trasf = t.val() || "0";
+
+dx +=
+"----------------\n"+
+"NOME : " + op + "\n"+
+"PAGA : " + paga + "\n"+
+"TRASFERTA : " + trasf + "\n\n";
+
+document.getElementById("labelDestra").innerText = dx;
+
+});
+
+});
+
+}
+
+}
+
+document.getElementById("labelSinistra").innerText = sx;
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
