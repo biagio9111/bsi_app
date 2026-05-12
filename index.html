@@ -14,44 +14,35 @@
 <style>
 
 body{
-
 background:#0F172A;
 font-family:Arial;
 margin:0;
 padding:0;
 color:white;
-
 }
 
 .header{
-
 background:#1E293B;
 padding:20px;
+text-align:center;
 font-size:28px;
 font-weight:bold;
-text-align:center;
-
 }
 
 .container{
-
 padding:15px;
-
 }
 
 .card{
-
 background:#1E293B;
 padding:15px;
 border-radius:15px;
 margin-bottom:20px;
-
 }
 
 input,
 select,
 button{
-
 width:100%;
 padding:14px;
 margin-top:10px;
@@ -59,51 +50,39 @@ border:none;
 border-radius:10px;
 font-size:16px;
 box-sizing:border-box;
-
 }
 
 button{
-
 background:#2563EB;
 color:white;
 font-weight:bold;
-
 }
 
 .menu{
-
 display:none;
-
 }
 
 .row{
-
 display:flex;
 gap:10px;
-
 }
 
 .col{
-
 flex:1;
-
 }
 
 .labelbox{
-
 background:#111827;
 padding:10px;
 border-radius:10px;
 white-space:pre-wrap;
 min-height:300px;
 overflow:auto;
-
+font-family:monospace;
 }
 
 .check{
-
 margin-top:15px;
-
 }
 
 </style>
@@ -190,6 +169,8 @@ AGGIUNGI FURGONE
 OPZIONI OPERAIO
 </button>
 
+
+
 <div id="opzioniOperaio" style="display:none;">
 
 <div class="check">
@@ -226,6 +207,8 @@ SALVA OPZIONI
 </button>
 
 </div>
+
+
 
 <button onclick="salvaGiornata()">
 SALVA GIORNATA
@@ -293,6 +276,15 @@ let datiOperai = {};
 
 
 
+window.onload = function(){
+
+caricaOperai();
+caricaGiornate();
+
+}
+
+
+
 function apriMenu(){
 
 let m = document.getElementById("menuOperai");
@@ -315,17 +307,7 @@ function aggiungiOperaio(){
 
 let nome = document.getElementById("nomeOperaio").value;
 
-db.ref("operai").once("value", snapshot => {
-
-let lista = snapshot.val() || [];
-
-lista.push(nome);
-
-db.ref("operai").set(lista);
-
-caricaOperai();
-
-});
+db.ref("operai").push(nome);
 
 }
 
@@ -335,25 +317,27 @@ function caricaOperai(){
 
 db.ref("operai").on("value", snapshot => {
 
-let lista = snapshot.val() || [];
+let dati = snapshot.val();
 
 let html = "";
 
-lista.forEach(op => {
+for(let id in dati){
+
+let op = dati[id];
 
 html += `<option value="${op}">${op}</option>`;
 
-});
+}
 
 document.getElementById("operaioModifica").innerHTML = html;
+
 document.getElementById("selettoreOperai").innerHTML = html;
+
 document.getElementById("filtroOperaio").innerHTML = html;
 
 });
 
 }
-
-caricaOperai();
 
 
 
@@ -379,11 +363,17 @@ let nome = document.getElementById("operaioModifica").value;
 
 db.ref("operai").once("value", snapshot => {
 
-let lista = snapshot.val() || [];
+let dati = snapshot.val();
 
-lista = lista.filter(op => op != nome);
+for(let id in dati){
 
-db.ref("operai").set(lista);
+if(dati[id] == nome){
+
+db.ref("operai/" + id).remove();
+
+}
+
+}
 
 });
 
@@ -395,7 +385,11 @@ function aggiungiOperaioCantiere(){
 
 let op = document.getElementById("selettoreOperai").value;
 
+if(!operaiCantiere.includes(op)){
+
 operaiCantiere.push(op);
+
+}
 
 aggiornaOperaiAggiunti();
 
@@ -414,6 +408,7 @@ html += `<option value="${op}">${op}</option>`;
 });
 
 document.getElementById("operaiAggiunti").innerHTML = html;
+
 document.getElementById("guidatore").innerHTML = html;
 
 }
@@ -465,14 +460,23 @@ let nome = document.getElementById("operaiAggiunti").value;
 datiOperai[nome] = {
 
 trasferta: document.getElementById("flagTrasferta").checked,
+
 assenza: document.getElementById("flagAssenza").checked,
+
 assenzaDa: document.getElementById("assenzaDa").value,
+
 assenzaA: document.getElementById("assenzaA").value,
+
 ferie: document.getElementById("flagFerie").checked,
+
 ferieDa: document.getElementById("ferieDa").value,
+
 ferieA: document.getElementById("ferieA").value,
+
 malattia: document.getElementById("flagMalattia").checked,
+
 malattiaDa: document.getElementById("malattiaDa").value,
+
 malattiaA: document.getElementById("malattiaA").value
 
 };
@@ -486,13 +490,21 @@ function salvaGiornata(){
 let giornata = {
 
 data: document.getElementById("data").value,
+
 cliente: document.getElementById("cliente").value,
+
 cantiere: document.getElementById("cantiere").value,
+
 operai: operaiCantiere,
+
 furgoni: furgoniCantiere,
+
 guidatore: document.getElementById("guidatore").value,
+
 ore: document.getElementById("ore").value,
+
 note: document.getElementById("note").value,
+
 opzioni: datiOperai
 
 };
@@ -500,6 +512,42 @@ opzioni: datiOperai
 db.ref("giornate").push(giornata);
 
 alert("GIORNATA SALVATA");
+
+}
+
+
+
+function caricaGiornate(){
+
+db.ref("giornate").on("value", snapshot => {
+
+let dati = snapshot.val();
+
+let listaCantieri = [];
+
+for(let id in dati){
+
+let g = dati[id];
+
+if(!listaCantieri.includes(g.cantiere)){
+
+listaCantieri.push(g.cantiere);
+
+}
+
+}
+
+let html = "";
+
+listaCantieri.forEach(c => {
+
+html += `<option value="${c}">${c}</option>`;
+
+});
+
+document.getElementById("filtroCantiere").innerHTML = html;
+
+});
 
 }
 
@@ -514,23 +562,24 @@ db.ref("giornate").once("value", snapshot => {
 let dati = snapshot.val();
 
 let sx = "";
+
 let dx = "";
 
 for(let id in dati){
 
 let g = dati[id];
 
-if(g.operai.includes(op)){
+if(Array.isArray(g.operai) && g.operai.includes(op)){
 
 sx +=
 "----------------\n"+
-"DATA : " + g.data + "\n"+
-"CLIENTE : " + g.cliente + "\n"+
-"CANTIERE : " + g.cantiere + "\n"+
-"FURGONI : " + g.furgoni + "\n"+
-"GUIDATORE : " + g.guidatore + "\n"+
-"ORE : " + g.ore + "\n"+
-"NOTE : " + g.note + "\n\n";
+"DATA       : " + g.data + "\n"+
+"CLIENTE    : " + g.cliente + "\n"+
+"CANTIERE   : " + g.cantiere + "\n"+
+"FURGONI    : " + g.furgoni + "\n"+
+"GUIDATORE  : " + g.guidatore + "\n"+
+"ORE        : " + g.ore + "\n"+
+"NOTE       : " + g.note + "\n\n";
 
 
 
@@ -544,9 +593,9 @@ let trasf = t.val() || "0";
 
 dx +=
 "----------------\n"+
-"NOME : " + op + "\n"+
-"PAGA : " + paga + "\n"+
-"TRASFERTA : " + trasf + "\n\n";
+"NOME       : " + op + "\n"+
+"PAGA       : " + paga + "\n"+
+"TRASFERTA  : " + trasf + "\n\n";
 
 document.getElementById("labelDestra").innerText = dx;
 
