@@ -606,7 +606,7 @@ listaSicura(listaRigheOperai)
 ];
 
 
-console.log(giornata);
+alert(JSON.stringify(giornata));
 
 
 db.ref("lavoro/giornate").once("value", snapshot => {
