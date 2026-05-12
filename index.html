@@ -497,33 +497,98 @@ malattiaA: document.getElementById("malattiaA").value
 
 
 
+  
 function salvaGiornata(){
 
-let giornata = {
 
-data: document.getElementById("data").value,
 
-cliente: document.getElementById("cliente").value,
+let listaRigheOperai = [];
 
-cantiere: document.getElementById("cantiere").value,
 
-operai: operaiCantiere,
 
-furgoni: furgoniCantiere,
+operaiCantiere.forEach(op => {
 
-guidatore: document.getElementById("guidatore").value,
 
-ore: document.getElementById("ore").value,
 
-note: document.getElementById("note").value,
+let opzioni = datiOperai[op] || {};
 
-opzioni: datiOperai
 
-};
+
+let riga = [
+
+op,
+
+"0",
+
+opzioni.trasferta ? "si" : "no",
+
+"0",
+
+opzioni.assenza ? "si" : "no",
+
+opzioni.assenzaDa || "",
+
+opzioni.assenzaA || "",
+
+opzioni.ferie ? "si" : "no",
+
+opzioni.ferieDa || "",
+
+opzioni.ferieA || "",
+
+opzioni.malattia ? "si" : "no",
+
+opzioni.malattiaDa || "",
+
+opzioni.malattiaA || ""
+
+];
+
+
+
+listaRigheOperai.push(riga);
+
+
+
+});
+
+
+
+
+
+let giornata = [
+
+document.getElementById("data").value,
+
+document.getElementById("cliente").value,
+
+document.getElementById("cantiere").value,
+
+furgoniCantiere,
+
+document.getElementById("guidatore").value,
+
+document.getElementById("ore").value,
+
+document.getElementById("note").value,
+
+operaiCantiere,
+
+listaRigheOperai
+
+];
+
+
+
+
 
 db.ref("lavoro/giornate").once("value", snapshot => {
 
+
+
 let lista = snapshot.val() || [];
+
+
 
 if(!Array.isArray(lista)){
 
@@ -531,15 +596,24 @@ lista = [];
 
 }
 
+
+
 lista.push(giornata);
+
+
 
 db.ref("lavoro/giornate").set(lista);
 
+
+
 });
+
+
 
 alert("GIORNATA SALVATA");
 
 }
+
 
 
 
