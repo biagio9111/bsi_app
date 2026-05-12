@@ -307,7 +307,7 @@ function aggiungiOperaio(){
 
 let nome = document.getElementById("nomeOperaio").value;
 
-db.ref("operai").push(nome);
+db.ref("lavoro/operai").push(nome);
 
 }
 
@@ -315,7 +315,7 @@ db.ref("operai").push(nome);
 
 function caricaOperai(){
 
-db.ref("operai").on("value", snapshot => {
+db.ref("lavoro/operai").on("value", snapshot => {
 
 let dati = snapshot.val();
 
@@ -349,9 +349,9 @@ let paga = document.getElementById("paga").value;
 
 let trasferta = document.getElementById("trasfertaValore").value;
 
-db.ref("paga_" + nome).set(paga);
+db.ref("lavoro/paga_" + nome).set(paga);
 
-db.ref("trasferta_" + nome).set(trasferta);
+db.ref("lavoro/trasferta_" + nome).set(trasferta);
 
 }
 
@@ -361,7 +361,7 @@ function eliminaOperaio(){
 
 let nome = document.getElementById("operaioModifica").value;
 
-db.ref("operai").once("value", snapshot => {
+db.ref("lavoro/operai").once("value", snapshot => {
 
 let dati = snapshot.val();
 
@@ -369,7 +369,7 @@ for(let id in dati){
 
 if(dati[id] == nome){
 
-db.ref("operai/" + id).remove();
+db.ref("lavoro/operai/" + id).remove();
 
 }
 
@@ -509,7 +509,7 @@ opzioni: datiOperai
 
 };
 
-db.ref("giornate").push(giornata);
+db.ref("lavoro/giornate").push(giornata);
 
 alert("GIORNATA SALVATA");
 
@@ -519,7 +519,7 @@ alert("GIORNATA SALVATA");
 
 function caricaGiornate(){
 
-db.ref("giornate").on("value", snapshot => {
+db.ref("lavoro/giornate").on("value", snapshot => {
 
 let dati = snapshot.val();
 
@@ -557,7 +557,7 @@ function filtraOperaio(){
 
 let op = document.getElementById("filtroOperaio").value;
 
-db.ref("giornate").once("value", snapshot => {
+db.ref("lavoro/giornate").once("value", snapshot => {
 
 let dati = snapshot.val();
 
@@ -583,11 +583,11 @@ sx +=
 
 
 
-db.ref("paga_" + op).once("value", p => {
+db.ref("lavoro/paga_" + op).once("value", p => {
 
 let paga = p.val() || "0";
 
-db.ref("trasferta_" + op).once("value", t => {
+db.ref("lavoro/trasferta_" + op).once("value", t => {
 
 let trasf = t.val() || "0";
 
