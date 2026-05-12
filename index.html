@@ -606,7 +606,7 @@ listaSicura(listaRigheOperai)
 ];
 
 
-
+console.log(giornata);
 
 
 db.ref("lavoro/giornate").once("value", snapshot => {
@@ -701,7 +701,7 @@ if(Array.isArray(g.operai) && g.operai.includes(op)){
 sx +=
 "----------------\n"+
 "DATA       : " + g.data + "\n"+
-"CLIENTE    : " + g.cliente + "\n"+
+"CLIENTE    : " + g.cliente g+ "\n"+
 "CANTIERE   : " + g.cantiere + "\n"+
 "FURGONI    : " + g.furgoni + "\n"+
 "GUIDATORE  : " + g.guidatore + "\n"+
