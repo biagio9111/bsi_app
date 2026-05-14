@@ -401,9 +401,27 @@ function caricaFurgoni(){
 
 db.ref("lavoro/furgoni").on("value", snapshot => {
 
-let dati = snapshot.val() || {};
+let dati = snapshot.val() || [];
 
-if(!Array.isArray(dati)){
+if(typeof dati == "string"){
+
+try{
+
+dati = JSON.parse(dati);
+
+}catch(e){
+
+dati = [];
+
+}
+
+}
+
+if(Array.isArray(dati)){
+
+dati = dati.filter(x => x != null);
+
+}else{
 
 dati = Object.values(dati);
 
