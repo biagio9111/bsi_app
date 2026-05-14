@@ -323,13 +323,11 @@ db.ref("lavoro/operai").set(lista);
 });
 }
 
-
-
 function caricaOperai(){
 
 db.ref("lavoro/operai").on("value", snapshot => {
 
-let dati = snapshot.val();
+let dati = snapshot.val() || [];
 
 let html = "";
 
@@ -350,6 +348,8 @@ document.getElementById("filtroOperaio").innerHTML = html;
 });
 
 }
+
+
 
 
 
@@ -606,7 +606,7 @@ listaSicura(listaRigheOperai)
 ];
 
 
-alert("GIORNATA SALVATA");
+
 
 
 db.ref("lavoro/giornate").once("value", snapshot => {
