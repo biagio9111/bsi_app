@@ -318,7 +318,11 @@ lista = [];
 
 }
 
+if(nome != "" && !lista.includes(nome)){
+
 lista.push(nome);
+
+}
 
 db.ref("lavoro/operai").set(lista);
 
@@ -452,7 +456,11 @@ function aggiungiFurgone(){
 
 let f = document.getElementById("furgoneInput").value;
 
+if(f != ""){
+
 furgoniCantiere.push(f);
+
+}
 
 let html = "";
 
