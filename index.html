@@ -334,7 +334,7 @@ db.ref("lavoro/operai").set(lista);
 }
 
 function caricaOperai(){
-  db.ref("lavoro/operai").on("value", snapshot => {
+  db.ref("operai").on("value", snapshot => {
 
 let dati = snapshot.val() || {};
 
