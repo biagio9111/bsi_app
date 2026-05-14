@@ -226,7 +226,7 @@ SALVA GIORNATA
 
 <select id="filtroOperaio" onchange="filtraOperaio()"></select>
 
-<select id="filtroCantiere"></select>
+
 
 <div class="row">
 
@@ -281,7 +281,6 @@ let datiOperai = {};
 window.onload = function(){
 
 caricaOperai();
-caricaGiornate();
 
 }
 
@@ -651,45 +650,6 @@ alert("GIORNATA SALVATA");
 });
 }
 
-
-
-
-
-
-
-function caricaGiornate(){
-
-db.ref("lavoro/giornate").on("value", snapshot => {
-
-let dati = snapshot.val() || [];
-
-let listaCantieri = [];
-
-dati.forEach(g => {
-
-let cantiere = g[2] || "";
-
-if(cantiere != "" && !listaCantieri.includes(cantiere)){
-
-listaCantieri.push(cantiere);
-
-}
-
-});
-
-let html = "";
-
-listaCantieri.forEach(c => {
-
-html += `<option value="${c}">${c}</option>`;
-
-});
-
-document.getElementById("filtroCantiere").innerHTML = html;
-
-});
-
-}
 
 
 
