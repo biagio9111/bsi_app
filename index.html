@@ -282,6 +282,7 @@ let trasfertaOperai = {};
 window.onload = function(){
 
 caricaOperai();
+  caricaFurgoni()
 
 }
 
@@ -368,7 +369,27 @@ filtraOperaio();
 
 }
 
+function caricaFurgoni(){
 
+db.ref("lavoro/furgoni").on("value", snapshot => {
+
+let dati = snapshot.val() || [];
+
+furgoniCantiere = dati;
+
+let html = "";
+
+dati.forEach(f => {
+
+html += `<option value="${f}">${f}</option>`;
+
+});
+
+document.getElementById("selettoreFurgoni").innerHTML = html;
+
+});
+
+}
 
 
 
@@ -456,21 +477,31 @@ function aggiungiFurgone(){
 
 let f = document.getElementById("furgoneInput").value;
 
-if(f != ""){
+if(f == ""){
 
-furgoniCantiere.push(f);
+return;
 
 }
 
-let html = "";
+db.ref("lavoro/furgoni").once("value", snapshot => {
 
-furgoniCantiere.forEach(ff => {
+let lista = snapshot.val() || [];
 
-html += `<option>${ff}</option>`;
+if(!Array.isArray(lista)){
+
+lista = [];
+
+}
+
+if(!lista.includes(f)){
+
+lista.push(f);
+
+}
+
+db.ref("lavoro/furgoni").set(lista);
 
 });
-
-document.getElementById("selettoreFurgoni").innerHTML = html;
 
 }
 
