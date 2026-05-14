@@ -277,6 +277,8 @@ let furgoniCantiere = [];
 let datiOperai = {};
 let pagaOperai = {};
 let trasfertaOperai = {};
+let furgoniSelezionati = [];
+  
 
 
 window.onload = function(){
@@ -500,6 +502,11 @@ lista.push(f);
 }
 
 db.ref("lavoro/furgoni").set(lista);
+  if(!furgoniSelezionati.includes(f)){
+
+furgoniSelezionati.push(f);
+
+  }
 
 });
 
@@ -651,7 +658,7 @@ testoSicuro(document.getElementById("cliente").value),
 
 testoSicuro(document.getElementById("cantiere").value),
 
-listaSicura(furgoniCantiere),
+listaSicura(furgoniSelezionati),
 
 testoSicuro(document.getElementById("guidatore").value),
 
