@@ -275,7 +275,8 @@ const db = firebase.database();
 let operaiCantiere = [];
 let furgoniCantiere = [];
 let datiOperai = {};
-
+let pagaOperai = {};
+let trasfertaOperai = {};
 
 
 window.onload = function(){
@@ -335,6 +336,18 @@ let html = "";
 for(let id in dati){
 
 let op = dati[id];
+
+db.ref("lavoro/paga_" + op).on("value", s => {
+
+pagaOperai[op] = s.val() || "0";
+
+});
+
+db.ref("lavoro/trasferta_" + op).on("value", s => {
+
+trasfertaOperai[op] = s.val() || "0";
+
+});
 
 html += `<option value="${op}">${op}</option>`;
 
@@ -552,11 +565,11 @@ let riga = [
 
 op,
 
-"0",
+pagaOperai[op] || "0",
 
 opzioni.trasferta ? "si" : "no",
 
-"0",
+trasfertaOperai[op] || "0",
 
 opzioni.assenza ? "si" : "no",
 
