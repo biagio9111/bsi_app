@@ -639,25 +639,32 @@ alert("GIORNATA SALVATA");
 
 
 
+
+});
+
+}
+
+}
+
 function caricaGiornate(){
 
 db.ref("lavoro/giornate").on("value", snapshot => {
 
-let dati = snapshot.val();
+let dati = snapshot.val() || [];
 
 let listaCantieri = [];
 
-for(let id in dati){
+dati.forEach(g => {
 
-let g = dati[id];
+let cantiere = g[2] || "";
 
-if(!listaCantieri.includes(g.cantiere)){
+if(cantiere != "" && !listaCantieri.includes(cantiere)){
 
-listaCantieri.push(g.cantiere);
-
-}
+listaCantieri.push(cantiere);
 
 }
+
+});
 
 let html = "";
 
@@ -681,60 +688,56 @@ let op = document.getElementById("filtroOperaio").value;
 
 db.ref("lavoro/giornate").once("value", snapshot => {
 
-let dati = snapshot.val();
+let dati = snapshot.val() || [];
 
 let sx = "";
-
 let dx = "";
 
-for(let id in dati){
+dati.forEach(g => {
 
-let g = dati[id];
+let furgoni = Array.isArray(g[3]) ? g[3].join(", ") : "";
+let listaOperai = Array.isArray(g[7]) ? g[7] : [];
+let listaRighe = Array.isArray(g[8]) ? g[8] : [];
 
-if(Array.isArray(g.operai) && g.operai.includes(op)){
+if(listaOperai.includes(op)){
 
 sx +=
-"----------------\n"+
-"DATA       : " + g.data + "\n"+
-"CLIENTE    : " + g.cliente g+ "\n"+
-"CANTIERE   : " + g.cantiere + "\n"+
-"FURGONI    : " + g.furgoni + "\n"+
-"GUIDATORE  : " + g.guidatore + "\n"+
-"ORE        : " + g.ore + "\n"+
-"NOTE       : " + g.note + "\n\n";
+"----------------\n" +
+"DATA       : " + (g[0] || "") + "\n" +
+"CLIENTE    : " + (g[1] || "") + "\n" +
+"CANTIERE   : " + (g[2] || "") + "\n" +
+"FURGONI    : " + furgoni + "\n" +
+"GUIDATORE  : " + (g[4] || "") + "\n" +
+"ORE        : " + (g[5] || "") + "\n" +
+"NOTE       : " + (g[6] || "") + "\n\n";
 
+listaRighe.forEach(riga => {
 
-
-db.ref("lavoro/paga_" + op).once("value", p => {
-
-let paga = p.val() || "0";
-
-db.ref("lavoro/trasferta_" + op).once("value", t => {
-
-let trasf = t.val() || "0";
+if(riga[0] == op){
 
 dx +=
-"----------------\n"+
-"NOME       : " + op + "\n"+
-"PAGA       : " + paga + "\n"+
-"TRASFERTA  : " + trasf + "\n\n";
+"----------------\n" +
+"NOME       : " + (riga[0] || "") + "\n" +
+"PAGA       : " + (riga[1] || "") + "\n" +
+"TRASFERTA  : " + (riga[2] == "si" ? riga[3] : "no") + "\n" +
+"ASSENZA    : " + (riga[4] == "si" ? riga[5] + " -> " + riga[6] : "no") + "\n" +
+"FERIE      : " + (riga[7] == "si" ? riga[8] + " -> " + riga[9] : "no") + "\n" +
+"MALATTIA   : " + (riga[10] == "si" ? riga[11] + " -> " + riga[12] : "no") + "\n\n";
 
+}
+
+});
+
+}
+
+});
+
+document.getElementById("labelSinistra").innerText = sx;
 document.getElementById("labelDestra").innerText = dx;
 
 });
 
-});
-
 }
-
-}
-
-document.getElementById("labelSinistra").innerText = sx;
-
-});
-
-}
-
 </script>
 
 </body>
