@@ -337,7 +337,13 @@ function caricaOperai(){
 
 db.ref("lavoro/operai").on("value", snapshot => {
 
-let dati = snapshot.val() || [];
+let dati = snapshot.val() || {};
+
+if(!Array.isArray(dati)){
+
+dati = Object.values(dati);
+
+}
 
 let html = "";
 
@@ -376,7 +382,13 @@ function caricaFurgoni(){
 
 db.ref("lavoro/furgoni").on("value", snapshot => {
 
-let dati = snapshot.val() || [];
+let dati = snapshot.val() || {};
+
+if(!Array.isArray(dati)){
+
+dati = Object.values(dati);
+
+}
 
 furgoniCantiere = dati;
 
