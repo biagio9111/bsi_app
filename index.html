@@ -284,7 +284,8 @@ let furgoniSelezionati = [];
 window.onload = function(){
 
 caricaOperai();
-  caricaFurgoni()
+caricaFurgoni();
+filtraOperaio();
 
 }
 
@@ -494,7 +495,7 @@ lista = [];
 
 }
 
-if(!lista.includes(f)){
+if(!lista.some(x => x.toLowerCase() == f.toLowerCase())){
 
 lista.push(f);
 
@@ -709,6 +710,17 @@ lista.push(giornata);
 db.ref("lavoro/giornate").set(lista);
 
 alert("GIORNATA SALVATA");
+  operaiCantiere = [];
+furgoniSelezionati = [];
+datiOperai = {};
+
+aggiornaOperaiAggiunti();
+
+document.getElementById("data").value = "";
+document.getElementById("cliente").value = "";
+document.getElementById("cantiere").value = "";
+document.getElementById("ore").value = "";
+document.getElementById("note").value = "";
 
 });
 }
