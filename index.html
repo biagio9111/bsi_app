@@ -375,7 +375,7 @@ let nome = document.getElementById("operaioModifica").value;
 
 db.ref("lavoro/operai").once("value", snapshot => {
 
-let dati = snapshot.val();
+let dati = snapshot.val() || [];
 
 for(let id in dati){
 
