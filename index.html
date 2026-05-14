@@ -358,7 +358,8 @@ document.getElementById("operaioModifica").innerHTML = html;
 document.getElementById("selettoreOperai").innerHTML = html;
 
 document.getElementById("filtroOperaio").innerHTML = html;
-
+filtraOperaio();
+  
 });
 
 }
@@ -668,7 +669,7 @@ alert("GIORNATA SALVATA");
 
 function filtraOperaio(){
 
-let op = document.getElementById("filtroOperaio").value;
+let op = document.getElementById("filtroOperaio").value || "";
 
 db.ref("lavoro/giornate").once("value", snapshot => {
 
