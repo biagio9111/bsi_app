@@ -495,7 +495,7 @@ lista = [];
 
 }
 
-if(!lista.some(x => x.toLowerCase() == f.toLowerCase())){
+if(!lista.some(x => String(x).toLowerCase() == f.toLowerCase())){
 
 lista.push(f);
 
