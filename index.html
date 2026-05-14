@@ -598,10 +598,13 @@ testoSicuro(document.getElementById("guidatore").value),
 testoSicuro(document.getElementById("ore").value),
 
 testoSicuro(document.getElementById("note").value),
+Array.isArray(operaiCantiere)
+? operaiCantiere
+: [],
 
-listaSicura(operaiCantiere),
-
-listaSicura(listaRigheOperai)
+Array.isArray(listaRigheOperai)
+? listaRigheOperai
+: []
 
 ];
 
@@ -623,7 +626,11 @@ lista = [];
 
 }
 
+while(giornata.length < 9){
 
+giornata.push([]);
+
+}
 
 lista.push(giornata);
 
