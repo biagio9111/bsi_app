@@ -336,7 +336,21 @@ db.ref("lavoro/operai").set(lista);
 function caricaOperai(){
   db.ref("lavoro/operai").on("value", snapshot => {
 
-let dati = snapshot.val() || {};
+let dati = snapshot.val() || [];
+
+if(typeof dati == "string"){
+
+try{
+
+dati = JSON.parse(dati);
+
+}catch(e){
+
+dati = [];
+
+}
+
+}
 
 if(Array.isArray(dati)){
 
@@ -347,6 +361,8 @@ dati = dati.filter(x => x != null);
 dati = Object.values(dati);
 
 }
+
+
 
 let html = "";
 
