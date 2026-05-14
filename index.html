@@ -474,7 +474,6 @@ document.getElementById("guidatore").innerHTML = html;
 }
 
 
-
 function aggiungiFurgone(){
 
 let f = document.getElementById("furgoneInput").value;
@@ -499,18 +498,22 @@ if(!lista.includes(f)){
 
 lista.push(f);
 
+db.ref("lavoro/furgoni").set(lista);
+
 }
 
-db.ref("lavoro/furgoni").set(lista);
-  if(!furgoniSelezionati.includes(f)){
+if(!furgoniSelezionati.includes(f)){
 
 furgoniSelezionati.push(f);
 
-  }
+}
+
+document.getElementById("furgoneInput").value = "";
 
 });
 
 }
+
 
 
 
