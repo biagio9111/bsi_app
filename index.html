@@ -126,7 +126,9 @@ SALVA PAGA E TRASFERTA
 <button onclick="eliminaOperaio()">
 ELIMINA OPERAIO
 </button>
-
+<button onclick="confermaSetup()">
+CONFERMA SETUP
+</button>
 </div>
 
 </div>
@@ -391,7 +393,13 @@ db.ref("lavoro/operai/" + id).remove();
 
 }
 
+function confermaSetup(){
 
+db.ref("lavoro/setup_ok").set(true);
+
+alert("SETUP CONFERMATO");
+
+}
 
 function aggiungiOperaioCantiere(){
 
