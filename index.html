@@ -10,7 +10,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <style>
 
 body{
@@ -324,7 +324,20 @@ appId: "1:1067050806419:web:2004fc2b78388aeb84f166"
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
+firebase.auth().signInWithEmailAndPassword(
+"biagiocrispino5@gmail.com",
+"Tigrotti12."
+)
+.then(() => {
 
+console.log("LOGIN OK");
+
+})
+.catch((error) => {
+
+alert(error.message);
+
+});
 
 
 let operaiCantiere = [];
