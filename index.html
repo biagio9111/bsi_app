@@ -60,11 +60,23 @@ box-sizing:border-box;
 }
 
 button{
-background:#2563EB;
+background:linear-gradient(90deg,#2563EB,#1D4ED8);
 color:white;
 font-weight:bold;
+border:none;
+cursor:pointer;
+transition:0.2s;
+border-radius:14px;
 }
 
+button:hover{
+transform:scale(1.02);
+opacity:0.95;
+}
+
+button:active{
+transform:scale(0.98);
+}
 .menu{
 display:none;
 animation:fade 0.3s ease;
