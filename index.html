@@ -376,24 +376,36 @@ document.getElementById("emailLogin").value;
 let password =
 document.getElementById("passwordLogin").value;
 
+
+
 firebase.auth().signInWithEmailAndPassword(
 email,
 password
 )
 
-.then(() => {
+.then((userCredential) => {
+
+console.log("LOGIN OK");
 
 localStorage.setItem("email", email);
 
 localStorage.setItem("password", password);
 
+
+
 document.getElementById("loginBox").style.display = "none";
 
 document.getElementById("appBox").style.display = "block";
 
+
+
 caricaOperai();
+
 caricaFurgoni();
+
 filtraOperaio();
+
+
 
 alert("LOGIN OK");
 
@@ -401,11 +413,13 @@ alert("LOGIN OK");
 
 .catch((error) => {
 
-alert("EMAIL O PASSWORD ERRATA");
+console.log(error);
+
+alert(error.message);
 
 });
 
-}
+  }
 
 
 
