@@ -150,7 +150,29 @@ margin-top:15px;
 BSI CANTIERE
 </div>
 
-<div class="container">
+  <div class="container" id="loginBox">
+
+<div class="card">
+
+<h2>LOGIN</h2>
+
+<input type="email" id="emailLogin" placeholder="Email">
+
+<input type="password" id="passwordLogin" placeholder="Password">
+
+<button onclick="login()">
+LOGIN
+</button>
+
+<button onclick="resetPassword()">
+PASSWORD DIMENTICATA
+</button>
+
+</div>
+
+  </div>
+
+<div class="container" id="appBox" style="display:none;">
 
 
 
@@ -323,22 +345,6 @@ appId: "1:1067050806419:web:2004fc2b78388aeb84f166"
 
 firebase.initializeApp(firebaseConfig);
 
-const db = firebase.database();
-firebase.auth().signInWithEmailAndPassword(
-"biagiocrispino5@gmail.com",
-"Tigrotti123."
-)
-.then(() => {
-
-console.log("LOGIN OK");
-
-})
-.catch((error) => {
-
-alert(error.message);
-
-});
-
 
 let operaiCantiere = [];
 let furgoniCantiere = [];
@@ -351,9 +357,84 @@ let furgoniSelezionati = [];
 
 window.onload = function(){
 
+document.getElementById("emailLogin").value =
+localStorage.getItem("email") || "";
+
+document.getElementById("passwordLogin").value =
+localStorage.getItem("password") || "";
+
+document.getElementById("loginBox").style.display = "block";
+
+document.getElementById("appBox").style.display = "none";
+
+}
+  function login(){
+
+let email =
+document.getElementById("emailLogin").value;
+
+let password =
+document.getElementById("passwordLogin").value;
+
+firebase.auth().signInWithEmailAndPassword(
+email,
+password
+)
+
+.then(() => {
+
+localStorage.setItem("email", email);
+
+localStorage.setItem("password", password);
+
+document.getElementById("loginBox").style.display = "none";
+
+document.getElementById("appBox").style.display = "block";
+
 caricaOperai();
 caricaFurgoni();
 filtraOperaio();
+
+alert("LOGIN OK");
+
+})
+
+.catch((error) => {
+
+alert("EMAIL O PASSWORD ERRATA");
+
+});
+
+}
+
+
+
+function resetPassword(){
+
+let email =
+document.getElementById("emailLogin").value;
+
+if(email == ""){
+
+alert("INSERISCI EMAIL");
+
+return;
+
+}
+
+firebase.auth().sendPasswordResetEmail(email)
+
+.then(() => {
+
+alert("EMAIL RESET INVIATA");
+
+})
+
+.catch((error) => {
+
+alert("ERRORE RESET PASSWORD");
+
+});
 
 }
 
