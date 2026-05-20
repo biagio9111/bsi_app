@@ -344,7 +344,8 @@ appId: "1:1067050806419:web:2004fc2b78388aeb84f166"
 };
 
 firebase.initializeApp(firebaseConfig);
-
+const db = firebase.database();
+const auth = firebase.auth();
 
 let operaiCantiere = [];
 let furgoniCantiere = [];
