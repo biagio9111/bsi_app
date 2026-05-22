@@ -624,7 +624,6 @@ db.ref("lavoro/trasferta_" + nome).set(trasferta);
 }
 
 
-
 function eliminaOperaio(){
 
 let nome =
@@ -638,10 +637,12 @@ return;
 
 }
 
+
+
 let conferma =
 confirm("Eliminare " + nome + " ?");
 
-if(conferma == false){
+if(!conferma){
 
 return;
 
@@ -655,19 +656,45 @@ let dati = snapshot.val() || [];
 
 
 
-for(let id in dati){
+if(typeof dati == "string"){
 
-if(dati[id] == nome){
+try{
 
-db.ref("lavoro/operai/" + id).remove();
+dati = JSON.parse(dati);
+
+}catch(e){
+
+dati = [];
 
 }
 
 }
 
 
+
+if(Array.isArray(dati)){
+
+dati = dati.filter(x => x != null);
+
+}else{
+
+dati = Object.values(dati);
+
+}
+
+
+
+dati = dati.filter(op => op != nome);
+
+
+
+db.ref("lavoro/operai").set(dati)
+
+.then(() => {
 
 alert("OPERAIO ELIMINATO");
+
+});
 
 });
 
