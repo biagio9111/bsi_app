@@ -627,11 +627,33 @@ db.ref("lavoro/trasferta_" + nome).set(trasferta);
 
 function eliminaOperaio(){
 
-let nome = document.getElementById("operaioModifica").value;
+let nome =
+document.getElementById("operaioModifica").value;
+
+if(nome == ""){
+
+alert("SELEZIONA OPERAIO");
+
+return;
+
+}
+
+let conferma =
+confirm("Eliminare " + nome + " ?");
+
+if(conferma == false){
+
+return;
+
+}
+
+
 
 db.ref("lavoro/operai").once("value", snapshot => {
 
 let dati = snapshot.val() || [];
+
+
 
 for(let id in dati){
 
@@ -642,6 +664,10 @@ db.ref("lavoro/operai/" + id).remove();
 }
 
 }
+
+
+
+alert("OPERAIO ELIMINATO");
 
 });
 
