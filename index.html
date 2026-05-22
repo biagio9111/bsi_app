@@ -623,29 +623,70 @@ db.ref("lavoro/trasferta_" + nome).set(trasferta);
 
 }
 
-
 function eliminaOperaio(){
 
-let nome = document.getElementById("operaioModifica").value;
+let nome =
+document.getElementById("operaioModifica").value;
 
 db.ref("lavoro/operai").once("value", snapshot => {
 
 let dati = snapshot.val() || [];
 
+
+
+if(typeof dati == "string"){
+
+try{
+
+dati = JSON.parse(dati);
+
+}catch(e){
+
+dati = [];
+
+}
+
+}
+
+
+
+if(Array.isArray(dati)){
+
+dati = dati.filter(x => x != null);
+
+}else{
+
+dati = Object.values(dati);
+
+}
+
+
+
+let nuovaLista = [];
+
+
+
 for(let id in dati){
 
-if(dati[id] == nome){
+if(dati[id] != nome){
 
-db.ref("lavoro/operai/" + id).remove();
+nuovaLista.push(dati[id]);
+
+}
 
 }
 
-}
+
+
+db.ref("lavoro/operai").set(nuovaLista);
+
+
+
+alert("OPERAIO ELIMINATO");
 
 });
 
 }
-  
 
 function confermaSetup(){
 
