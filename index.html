@@ -649,26 +649,55 @@ return;
 
 
 
-db.ref("lavoro/operai").once("value", snapshot => {
+db.ref("lavoro/operai").once("value")
 
-snapshot.forEach(child => {
+.then(snapshot => {
 
-if(child.val() == nome){
+let dati = snapshot.val() || "[]";
 
-child.ref.remove();
+
+
+try{
+
+dati = JSON.parse(dati);
+
+}catch(e){
+
+dati = [];
 
 }
 
-});
 
 
+let nuovaLista = [];
+
+
+
+for(let i = 0; i < dati.length; i++){
+
+if(dati[i] != nome){
+
+nuovaLista.push(dati[i]);
+
+}
+
+}
+
+
+
+db.ref("lavoro/operai")
+
+.set(JSON.stringify(nuovaLista))
+
+.then(() => {
 
 alert("OPERAIO ELIMINATO");
 
 });
 
-}
+});
 
+}
 function confermaSetup(){
 
 db.ref("lavoro/setup_ok").set(true);
