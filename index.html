@@ -626,79 +626,26 @@ db.ref("lavoro/trasferta_" + nome).set(trasferta);
 
 function eliminaOperaio(){
 
-let nome =
-document.getElementById("operaioModifica").value;
-
-if(nome == ""){
-
-alert("SELEZIONA OPERAIO");
-
-return;
-
-}
-
-
-
-let conferma =
-confirm("Eliminare " + nome + " ?");
-
-if(!conferma){
-
-return;
-
-}
-
-
+let nome = document.getElementById("operaioModifica").value;
 
 db.ref("lavoro/operai").once("value", snapshot => {
 
 let dati = snapshot.val() || [];
 
+for(let id in dati){
 
+if(dati[id] == nome){
 
-if(typeof dati == "string"){
-
-try{
-
-dati = JSON.parse(dati);
-
-}catch(e){
-
-dati = [];
+db.ref("lavoro/operai/" + id).remove();
 
 }
 
 }
-
-
-
-if(Array.isArray(dati)){
-
-dati = dati.filter(x => x != null);
-
-}else{
-
-dati = Object.values(dati);
-
-}
-
-
-
-dati = dati.filter(op => op != nome);
-
-
-
-db.ref("lavoro/operai").set(dati)
-
-.then(() => {
-
-alert("OPERAIO ELIMINATO");
-
-});
 
 });
 
 }
+  
 
 function confermaSetup(){
 
