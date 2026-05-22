@@ -628,57 +628,38 @@ function eliminaOperaio(){
 let nome =
 document.getElementById("operaioModifica").value;
 
+if(nome == ""){
+
+alert("SELEZIONA OPERAIO");
+
+return;
+
+}
+
+
+
+let conferma =
+confirm("Eliminare " + nome + " ?");
+
+if(!conferma){
+
+return;
+
+}
+
+
+
 db.ref("lavoro/operai").once("value", snapshot => {
 
-let dati = snapshot.val() || [];
+snapshot.forEach(child => {
 
+if(child.val() == nome){
 
-
-if(typeof dati == "string"){
-
-try{
-
-dati = JSON.parse(dati);
-
-}catch(e){
-
-dati = [];
+child.ref.remove();
 
 }
 
-}
-
-
-
-if(Array.isArray(dati)){
-
-dati = dati.filter(x => x != null);
-
-}else{
-
-dati = Object.values(dati);
-
-}
-
-
-
-let nuovaLista = [];
-
-
-
-for(let id in dati){
-
-if(dati[id] != nome){
-
-nuovaLista.push(dati[id]);
-
-}
-
-}
-
-
-
-db.ref("lavoro/operai").set(nuovaLista);
+});
 
 
 
