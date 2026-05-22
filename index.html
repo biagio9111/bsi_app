@@ -653,17 +653,17 @@ db.ref("lavoro/operai").once("value")
 
 .then(snapshot => {
 
-let dati = snapshot.val() || "[]";
+let lista = snapshot.val() || "[]";
 
 
 
 try{
 
-dati = JSON.parse(dati);
+lista = JSON.parse(lista);
 
 }catch(e){
 
-dati = [];
+lista = [];
 
 }
 
@@ -673,11 +673,11 @@ let nuovaLista = [];
 
 
 
-for(let i = 0; i < dati.length; i++){
+for(let i = 0; i < lista.length; i++){
 
-if(dati[i] != nome){
+if(lista[i] != nome){
 
-nuovaLista.push(dati[i]);
+nuovaLista.push(lista[i]);
 
 }
 
@@ -692,6 +692,8 @@ db.ref("lavoro/operai")
 .then(() => {
 
 alert("OPERAIO ELIMINATO");
+
+caricaOperai();
 
 });
 
