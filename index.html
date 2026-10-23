@@ -832,17 +832,28 @@ malattiaA: document.getElementById("malattiaA").value
 
 }
 
-function listaSicura(v){
 
-if(Array.isArray(v)){
+function listaSicura(v) {
 
-return v;
+  if (Array.isArray(v)) {
+    return v;
+  }
 
+  if (typeof v === "string") {
+    try {
+      const dati = JSON.parse(v);
+
+      if (Array.isArray(dati)) {
+        return dati;
+      }
+    } catch (e) {
+      console.error("Errore lettura lista Firebase:", e);
+    }
+  }
+
+  return [];
 }
 
-return [];
-
-}
 
   function testoSicuro(v){
 
