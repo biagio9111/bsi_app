@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -11,133 +12,146 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
 <style>
 
-body{
-background:#0F172A;
-font-family:Arial;
-margin:0;
-padding:0;
-color:white;
+body {
+  background: #0F172A;
+  font-family: Arial;
+  margin: 0;
+  padding: 0;
+  color: white;
 }
 
-.header{
-background:linear-gradient(90deg,#2563EB,#1D4ED8);
-padding:20px;
-text-align:center;
-font-size:30px;
-font-weight:bold;
-letter-spacing:2px;
-box-shadow:0 4px 15px rgba(0,0,0,0.3);
-position:sticky;
-top:0;
-z-index:1000;
-}
-  h2{
-margin-top:0;
-font-size:22px;
-border-bottom:1px solid #334155;
-padding-bottom:10px;
-color:#60A5FA;
-  }
-
-.container{
-padding:15px;
+.header {
+  background: linear-gradient(90deg, #2563EB, #1D4ED8);
+  padding: 20px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.card{
-background:#1E293B;
-padding:20px;
-border-radius:20px;
-margin-bottom:25px;
-box-shadow:0 8px 20px rgba(0,0,0,0.25);
-border:1px solid rgba(255,255,255,0.05);
-transition:0.2s;
+h2 {
+  margin-top: 0;
+  font-size: 22px;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 10px;
+  color: #60A5FA;
 }
 
-.card:hover{
-transform:translateY(-2px);
+.container {
+  padding: 15px;
 }
+
+.card {
+  background: #1E293B;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
 input,
-select{
-width:100%;
-padding:14px;
-margin-top:10px;
-border:none;
-border-radius:14px;
-font-size:16px;
-box-sizing:border-box;
-background:#111827;
-color:white;
-outline:none;
-border:1px solid #334155;
-transition:0.2s;
+select {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: #111827;
+  color: white;
+  outline: none;
+  border: 1px solid #334155;
+  transition: 0.2s;
 }
 
 input:focus,
-select:focus{
-border:1px solid #2563EB;
-box-shadow:0 0 10px rgba(37,99,235,0.4);
-}
-button{
-background:linear-gradient(90deg,#2563EB,#1D4ED8);
-color:white;
-font-weight:bold;
-border:none;
-cursor:pointer;
-transition:0.2s;
-border-radius:14px;
+select:focus {
+  border: 1px solid #2563EB;
+  box-shadow: 0 0 10px rgba(37,99,235,0.4);
 }
 
-button:hover{
-transform:scale(1.02);
-opacity:0.95;
+button {
+  background: linear-gradient(90deg, #2563EB, #1D4ED8);
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 14px;
+  padding: 12px;
+  margin-top: 10px;
 }
 
-button:active{
-transform:scale(0.98);
-}
-.menu{
-display:none;
-animation:fade 0.3s ease;
+button:hover {
+  transform: scale(1.02);
+  opacity: 0.95;
 }
 
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(-10px);
+button:active {
+  transform: scale(0.98);
 }
 
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-.row{
-display:flex;
-gap:10px;
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.col{
-flex:1;
+.menu {
+  display: none;
+  animation: fade 0.3s ease;
 }
 
-.labelbox{
-background:#0B1120;
-padding:15px;
-border-radius:15px;
-white-space:pre-wrap;
-min-height:350px;
-overflow:auto;
-font-family:monospace;
-border:1px solid #1E293B;
-line-height:1.5;
-font-size:14px;
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.check{
-margin-top:15px;
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.col {
+  flex: 1;
+  min-width: 0;
+}
+
+.labelbox {
+  background: #0B1120;
+  padding: 15px;
+  border-radius: 15px;
+  white-space: pre-wrap;
+  min-height: 350px;
+  overflow: auto;
+  font-family: monospace;
+  border: 1px solid #1E293B;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.check {
+  margin-top: 15px;
 }
 
 </style>
@@ -147,691 +161,399 @@ margin-top:15px;
 <body>
 
 <div class="header">
-BSI CANTIERE
+  BSI CANTIERE
 </div>
 
-  <div class="container" id="loginBox">
+<div class="container" id="loginBox">
 
-<div class="card">
+  <div class="card">
 
-<h2>LOGIN</h2>
+    <h2>LOGIN</h2>
 
-<input type="email" id="emailLogin" placeholder="Email">
+    <input
+      type="email"
+      id="emailLogin"
+      placeholder="Email"
+    >
 
-<input type="password" id="passwordLogin" placeholder="Password">
+    <input
+      type="password"
+      id="passwordLogin"
+      placeholder="Password"
+    >
 
-<button onclick="login()">
-LOGIN
-</button>
+    <button onclick="login()">
+      LOGIN
+    </button>
 
-<button onclick="resetPassword()">
-PASSWORD DIMENTICATA
-</button>
-
-</div>
+    <button onclick="resetPassword()">
+      PASSWORD DIMENTICATA
+    </button>
 
   </div>
 
+</div>
+
 <div class="container" id="appBox" style="display:none;">
 
+  <div class="card">
 
+    <button onclick="apriMenu()">
+      MENU OPERAI
+    </button>
 
-<div class="card">
+    <div class="menu" id="menuOperai">
 
-<button onclick="apriMenu()">
-MENU OPERAI
-</button>
+      <input
+        type="text"
+        id="nomeOperaio"
+        placeholder="Nome operaio"
+      >
 
-<div class="menu" id="menuOperai">
+      <button onclick="aggiungiOperaio()">
+        AGGIUNGI OPERAIO
+      </button>
 
-<input type="text" id="nomeOperaio" placeholder="Nome operaio">
+      <select id="operaioModifica"></select>
 
-<button onclick="aggiungiOperaio()">
-AGGIUNGI OPERAIO
-</button>
+      <input
+        type="number"
+        id="paga"
+        placeholder="Paga"
+      >
 
-<select id="operaioModifica"></select>
+      <input
+        type="number"
+        id="trasfertaValore"
+        placeholder="Trasferta"
+      >
 
-<input type="number" id="paga" placeholder="Paga">
+      <button onclick="salvaPagaTrasferta()">
+        SALVA PAGA E TRASFERTA
+      </button>
 
-<input type="number" id="trasfertaValore" placeholder="Trasferta">
+      <button onclick="eliminaOperaio()">
+        ELIMINA OPERAIO
+      </button>
 
-<button onclick="salvaPagaTrasferta()">
-SALVA PAGA E TRASFERTA
-</button>
+      <button onclick="confermaSetup()">
+        CONFERMA SETUP
+      </button>
 
-<button onclick="eliminaOperaio()">
-ELIMINA OPERAIO
-</button>
-<button onclick="confermaSetup()">
-CONFERMA SETUP
-</button>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>NUOVA GIORNATA</h2>
+
+    <input type="date" id="data">
+
+    <input
+      type="text"
+      id="cliente"
+      placeholder="Cliente"
+    >
+
+    <input
+      type="text"
+      id="cantiere"
+      placeholder="Cantiere"
+    >
+
+    <select id="selettoreOperai"></select>
+
+    <button onclick="aggiungiOperaioCantiere()">
+      AGGIUNGI OPERAIO AL CANTIERE
+    </button>
+
+    <input
+      type="text"
+      id="furgoneInput"
+      placeholder="Aggiungi furgone"
+    >
+
+    <button onclick="aggiungiFurgone()">
+      AGGIUNGI FURGONE
+    </button>
+
+    <select id="selettoreFurgoni"></select>
+
+    <select id="guidatore"></select>
+
+    <input
+      type="number"
+      id="ore"
+      placeholder="Ore"
+    >
+
+    <input
+      type="text"
+      id="note"
+      placeholder="Note"
+    >
+
+    <select id="operaiAggiunti"></select>
+
+    <button onclick="apriOpzioniOperaio()">
+      OPZIONI OPERAIO
+    </button>
+
+    <div id="opzioniOperaio" style="display:none;">
+
+      <div class="check">
+        <input type="checkbox" id="flagTrasferta">
+        TRASFERTA
+      </div>
+
+      <div class="check">
+        <input type="checkbox" id="flagAssenza">
+        ASSENZA
+      </div>
+
+      <input type="date" id="assenzaDa">
+      <input type="date" id="assenzaA">
+
+      <div class="check">
+        <input type="checkbox" id="flagFerie">
+        FERIE
+      </div>
+
+      <input type="date" id="ferieDa">
+      <input type="date" id="ferieA">
+
+      <div class="check">
+        <input type="checkbox" id="flagMalattia">
+        MALATTIA
+      </div>
+
+      <input type="date" id="malattiaDa">
+      <input type="date" id="malattiaA">
+
+      <button onclick="salvaOpzioniOperaio()">
+        SALVA OPZIONI
+      </button>
+
+    </div>
+
+    <button
+      id="btnSalvaGiornata"
+      onclick="salvaGiornata()"
+    >
+      SALVA GIORNATA
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>SCREEN 2</h2>
+
+    <select
+      id="filtroOperaio"
+      onchange="filtraOperaio()"
+    ></select>
+
+    <div class="row">
+
+      <div class="col">
+        <div
+          class="labelbox"
+          id="labelSinistra"
+        ></div>
+      </div>
+
+      <div class="col">
+        <div
+          class="labelbox"
+          id="labelDestra"
+        ></div>
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
-
-</div>
-
-
-
-<div class="card">
-
-<h2>NUOVA GIORNATA</h2>
-
-<input type="date" id="data">
-
-<input type="text" id="cliente" placeholder="Cliente">
-
-<input type="text" id="cantiere" placeholder="Cantiere">
-
-<select id="selettoreOperai"></select>
-
-<button onclick="aggiungiOperaioCantiere()">
-AGGIUNGI OPERAIO AL CANTIERE
-</button>
-
-<input type="text" id="furgoneInput" placeholder="Aggiungi furgone">
-
-<button onclick="aggiungiFurgone()">
-AGGIUNGI FURGONE
-</button>
-
-<select id="selettoreFurgoni"></select>
-
-<select id="guidatore"></select>
-
-<input type="number" id="ore" placeholder="Ore">
-
-<input type="text" id="note" placeholder="Note">
-
-<select id="operaiAggiunti"></select>
-
-<button onclick="apriOpzioniOperaio()">
-OPZIONI OPERAIO
-</button>
-
-
-
-<div id="opzioniOperaio" style="display:none;">
-
-<div class="check">
-<input type="checkbox" id="flagTrasferta">
-TRASFERTA
-</div>
-
-<div class="check">
-<input type="checkbox" id="flagAssenza">
-ASSENZA
-</div>
-
-<input type="date" id="assenzaDa">
-<input type="date" id="assenzaA">
-
-<div class="check">
-<input type="checkbox" id="flagFerie">
-FERIE
-</div>
-
-<input type="date" id="ferieDa">
-<input type="date" id="ferieA">
-
-<div class="check">
-<input type="checkbox" id="flagMalattia">
-MALATTIA
-</div>
-
-<input type="date" id="malattiaDa">
-<input type="date" id="malattiaA">
-
-<button onclick="salvaOpzioniOperaio()">
-SALVA OPZIONI
-</button>
-
-</div>
-
-
-
-<button onclick="salvaGiornata()">
-SALVA GIORNATA
-</button>
-
-</div>
-
-
-
-<div class="card">
-
-<h2>SCREEN 2</h2>
-
-<select id="filtroOperaio" onchange="filtraOperaio()"></select>
-
-
-
-<div class="row">
-
-<div class="col">
-<div class="labelbox" id="labelSinistra"></div>
-</div>
-
-<div class="col">
-<div class="labelbox" id="labelDestra"></div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
 
 <script>
 
+/* ========================================
+   CONFIGURAZIONE FIREBASE
+======================================== */
+
 const firebaseConfig = {
 
-apiKey: "AIzaSyBd8kyuAPFWLiqo7v7KpA4eIa8zmmJXY4o",
+  apiKey: "AIzaSyBd8kyuAPFWLiqo7v7KpA4eIa8zmmJXY4o",
 
-authDomain: "inventario-deposito-careni.firebaseapp.com",
+  authDomain:
+    "inventario-deposito-careni.firebaseapp.com",
 
-databaseURL: "https://inventario-deposito-careni-default-rtdb.firebaseio.com",
+  databaseURL:
+    "https://inventario-deposito-careni-default-rtdb.firebaseio.com",
 
-projectId: "inventario-deposito-careni",
+  projectId:
+    "inventario-deposito-careni",
 
-storageBucket: "inventario-deposito-careni.firebasestorage.app",
+  storageBucket:
+    "inventario-deposito-careni.firebasestorage.app",
 
-messagingSenderId: "1067050806419",
+  messagingSenderId:
+    "1067050806419",
 
-appId: "1:1067050806419:web:2004fc2b78388aeb84f166"
+  appId:
+    "1:1067050806419:web:2004fc2b78388aeb84f166"
 
 };
 
 firebase.initializeApp(firebaseConfig);
+
 const db = firebase.database();
 const auth = firebase.auth();
+
+/* ========================================
+   VARIABILI GLOBALI
+======================================== */
 
 let operaiCantiere = [];
 let furgoniCantiere = [];
 let datiOperai = {};
+
 let pagaOperai = {};
 let trasfertaOperai = {};
+
 let furgoniSelezionati = [];
-  
 
+let giornateFirebase = [];
 
-window.onload = function(){
+let ascoltoGiornateAttivo = false;
+let salvataggioInCorso = false;
 
-document.getElementById("emailLogin").value =
-localStorage.getItem("email") || "";
+/* ========================================
+   AVVIO PAGINA
+======================================== */
 
-document.getElementById("passwordLogin").value =
-localStorage.getItem("password") || "";
+window.onload = function() {
 
-document.getElementById("loginBox").style.display = "block";
+  document.getElementById("emailLogin").value =
+    localStorage.getItem("email") || "";
 
-document.getElementById("appBox").style.display = "none";
+  document.getElementById("loginBox").style.display =
+    "block";
 
-}
-  function login(){
-
-let email =
-document.getElementById("emailLogin").value;
-
-let password =
-document.getElementById("passwordLogin").value;
-
-
-
-firebase.auth().signInWithEmailAndPassword(
-email,
-password
-)
-
-.then((userCredential) => {
-
-console.log("LOGIN OK");
-
-localStorage.setItem("email", email);
-
-localStorage.setItem("password", password);
-
-
-
-document.getElementById("loginBox").style.display = "none";
-
-document.getElementById("appBox").style.display = "block";
-
-
-
-caricaOperai();
-
-caricaFurgoni();
-
-filtraOperaio();
-
-
-
-alert("LOGIN OK");
-
-})
-
-.catch((error) => {
-
-console.log(error);
-
-alert(error.message);
-
-});
-
-  }
-
-
-
-function resetPassword(){
-
-let email =
-document.getElementById("emailLogin").value;
-
-if(email == ""){
-
-alert("INSERISCI EMAIL");
-
-return;
-
-}
-
-firebase.auth().sendPasswordResetEmail(email)
-
-.then(() => {
-
-alert("EMAIL RESET INVIATA");
-
-})
-
-.catch((error) => {
-
-alert("ERRORE RESET PASSWORD");
-
-});
-
-}
-
-
-
-function apriMenu(){
-
-let m = document.getElementById("menuOperai");
-
-if(m.style.display == "block"){
-
-m.style.display = "none";
-
-}else{
-
-m.style.display = "block";
-
-}
-
-}
-
-
-
-function aggiungiOperaio(){
-let nome = document.getElementById("nomeOperaio").value;
-
-db.ref("lavoro/operai").once("value", snapshot => {
-
-let lista = snapshot.val() || [];
-
-if(!Array.isArray(lista)){
-
-lista = [];
-
-}
-
-if(nome != "" && !lista.includes(nome)){
-
-lista.push(nome);
-
-}
-
-db.ref("lavoro/operai").set(lista);
-
-});
-}
-
-function caricaOperai(){
-  db.ref("lavoro/operai").on("value", snapshot => {
-
-let dati = snapshot.val() || [];
-
-if(typeof dati == "string"){
-
-try{
-
-dati = JSON.parse(dati);
-
-}catch(e){
-
-dati = [];
-
-}
-
-}
-
-if(Array.isArray(dati)){
-
-dati = dati.filter(x => x != null);
-
-}else{
-
-dati = Object.values(dati);
-
-}
-
-
-
-let html = "";
-
-for(let id in dati){
-
-let op = dati[id];
-
-db.ref("lavoro/paga_" + op).on("value", s => {
-
-pagaOperai[op] = s.val() || "0";
-
-});
-
-db.ref("lavoro/trasferta_" + op).on("value", s => {
-
-trasfertaOperai[op] = s.val() || "0";
-
-});
-
-html += `<option value="${op}">${op}</option>`;
-
-}
-
-document.getElementById("operaioModifica").innerHTML = html;
-
-document.getElementById("selettoreOperai").innerHTML = html;
-
-document.getElementById("filtroOperaio").innerHTML = html;
-filtraOperaio();
-  
-});
-
-}
-
-function caricaFurgoni(){
-
-db.ref("lavoro/furgoni").on("value", snapshot => {
-
-let dati = snapshot.val() || [];
-
-if(typeof dati == "string"){
-
-try{
-
-dati = JSON.parse(dati);
-
-}catch(e){
-
-dati = [];
-
-}
-
-}
-
-if(Array.isArray(dati)){
-
-dati = dati.filter(x => x != null);
-
-}else{
-
-dati = Object.values(dati);
-
-}
-
-furgoniCantiere = dati;
-
-let html = "";
-
-dati.forEach(f => {
-
-html += `<option value="${f}">${f}</option>`;
-
-});
-
-document.getElementById("selettoreFurgoni").innerHTML = html;
-
-});
-
-}
-
-
-
-function salvaPagaTrasferta(){
-
-let nome = document.getElementById("operaioModifica").value;
-
-let paga = document.getElementById("paga").value;
-
-let trasferta = document.getElementById("trasfertaValore").value;
-
-db.ref("lavoro/paga_" + nome).set(paga);
-
-db.ref("lavoro/trasferta_" + nome).set(trasferta);
-
-}
-
-function eliminaOperaio(){
-
-let nome =
-document.getElementById("operaioModifica").value;
-
-if(nome == ""){
-
-alert("SELEZIONA OPERAIO");
-
-return;
-
-}
-
-
-
-let conferma =
-confirm("Eliminare " + nome + " ?");
-
-if(!conferma){
-
-return;
-
-}
-
-
-
-db.ref("lavoro/operai").once("value")
-
-.then(snapshot => {
-
-let lista = snapshot.val() || "[]";
-
-
-
-try{
-
-lista = JSON.parse(lista);
-
-}catch(e){
-
-lista = [];
-
-}
-
-
-
-let nuovaLista = [];
-
-
-
-for(let i = 0; i < lista.length; i++){
-
-if(lista[i] != nome){
-
-nuovaLista.push(lista[i]);
-
-}
-
-}
-
-
-
-db.ref("lavoro/operai")
-
-.set(JSON.stringify(nuovaLista))
-
-.then(() => {
-
-alert("OPERAIO ELIMINATO");
-
-caricaOperai();
-
-});
-
-});
-
-}
-function confermaSetup(){
-
-db.ref("lavoro/setup_ok").set(true);
-
-alert("SETUP CONFERMATO");
-
-}
-
-function aggiungiOperaioCantiere(){
-
-let op = document.getElementById("selettoreOperai").value;
-
-if(!operaiCantiere.includes(op)){
-
-operaiCantiere.push(op);
-
-}
-
-aggiornaOperaiAggiunti();
-
-}
-
-
-
-function aggiornaOperaiAggiunti(){
-
-let html = "";
-
-operaiCantiere.forEach(op => {
-
-html += `<option value="${op}">${op}</option>`;
-
-});
-
-document.getElementById("operaiAggiunti").innerHTML = html;
-
-document.getElementById("guidatore").innerHTML = html;
-
-}
-
-
-function aggiungiFurgone(){
-
-let f = document.getElementById("furgoneInput").value;
-
-if(f == ""){
-
-return;
-
-}
-
-db.ref("lavoro/furgoni").once("value", snapshot => {
-
-let lista = snapshot.val() || [];
-
-if(!Array.isArray(lista)){
-
-lista = [];
-
-}
-
-if(!lista.some(x => String(x).toLowerCase() == f.toLowerCase())){
-
-lista.push(f);
-
-db.ref("lavoro/furgoni").set(lista);
-
-}
-
-if(!furgoniSelezionati.includes(f)){
-
-furgoniSelezionati.push(f);
-
-}
-
-document.getElementById("furgoneInput").value = "";
-
-});
-
-}
-
-
-
-
-function apriOpzioniOperaio(){
-
-let div = document.getElementById("opzioniOperaio");
-
-if(div.style.display == "block"){
-
-div.style.display = "none";
-
-}else{
-
-div.style.display = "block";
-
-}
-
-}
-
-
-
-function salvaOpzioniOperaio(){
-
-let nome = document.getElementById("operaiAggiunti").value;
-
-datiOperai[nome] = {
-
-trasferta: document.getElementById("flagTrasferta").checked,
-
-assenza: document.getElementById("flagAssenza").checked,
-
-assenzaDa: document.getElementById("assenzaDa").value,
-
-assenzaA: document.getElementById("assenzaA").value,
-
-ferie: document.getElementById("flagFerie").checked,
-
-ferieDa: document.getElementById("ferieDa").value,
-
-ferieA: document.getElementById("ferieA").value,
-
-malattia: document.getElementById("flagMalattia").checked,
-
-malattiaDa: document.getElementById("malattiaDa").value,
-
-malattiaA: document.getElementById("malattiaA").value
+  document.getElementById("appBox").style.display =
+    "none";
 
 };
 
+/* ========================================
+   LOGIN
+======================================== */
+
+function login() {
+
+  let email =
+    document.getElementById("emailLogin").value;
+
+  let password =
+    document.getElementById("passwordLogin").value;
+
+  auth.signInWithEmailAndPassword(email, password)
+
+    .then(() => {
+
+      localStorage.setItem("email", email);
+
+      // Non memorizzare la password nel browser.
+      localStorage.removeItem("password");
+
+      document.getElementById("passwordLogin").value =
+        "";
+
+      document.getElementById("loginBox").style.display =
+        "none";
+
+      document.getElementById("appBox").style.display =
+        "block";
+
+      caricaOperai();
+      caricaFurgoni();
+      avviaAscoltoGiornate();
+
+      alert("LOGIN OK");
+
+    })
+
+    .catch(error => {
+
+      console.error(error);
+
+      alert(error.message);
+
+    });
+
 }
 
+/* ========================================
+   RESET PASSWORD
+======================================== */
+
+function resetPassword() {
+
+  let email =
+    document.getElementById("emailLogin").value;
+
+  if (email === "") {
+
+    alert("INSERISCI EMAIL");
+    return;
+
+  }
+
+  auth.sendPasswordResetEmail(email)
+
+    .then(() => {
+
+      alert("EMAIL RESET INVIATA");
+
+    })
+
+    .catch(error => {
+
+      alert(
+        "ERRORE RESET PASSWORD: " +
+        error.message
+      );
+
+    });
+
+}
+
+/* ========================================
+   MENU OPERAI
+======================================== */
+
+function apriMenu() {
+
+  let m =
+    document.getElementById("menuOperai");
+
+  if (m.style.display === "block") {
+
+    m.style.display = "none";
+
+  } else {
+
+    m.style.display = "block";
+
+  }
+
+}
+
+/* ========================================
+   CONVERSIONE LISTE FIREBASE
+======================================== */
 
 function listaSicura(v) {
 
@@ -839,225 +561,840 @@ function listaSicura(v) {
     return v;
   }
 
+  if (v == null) {
+    return [];
+  }
+
   if (typeof v === "string") {
+
     try {
+
       const dati = JSON.parse(v);
 
       if (Array.isArray(dati)) {
         return dati;
       }
+
     } catch (e) {
-      console.error("Errore lettura lista Firebase:", e);
+
+      console.error(
+        "Errore JSON Firebase:",
+        e
+      );
+
     }
+
   }
 
   return [];
-}
-
-
-  function testoSicuro(v){
-
-if(v == null){
-
-return "";
 
 }
 
-if(v == undefined){
+/* ========================================
+   PROTEZIONE SALVATAGGIO GIORNATE
+======================================== */
 
-return "";
+function listaGiornatePerSalvataggio(v) {
 
-}
+  if (v == null) {
+    return [];
+  }
 
-return String(v);
+  if (Array.isArray(v)) {
+    return v.slice();
+  }
+
+  if (typeof v === "string") {
+
+    const dati = JSON.parse(v);
+
+    if (Array.isArray(dati)) {
+      return dati;
+    }
 
   }
-  
-function salvaGiornata(){
 
-
-
-let listaRigheOperai = [];
-
-
-
-operaiCantiere.forEach(op => {
-
-
-
-let opzioni = datiOperai[op] || {};
-
-
-
-let riga = [
-
-op,
-
-pagaOperai[op] || "0",
-
-opzioni.trasferta ? "si" : "no",
-
-trasfertaOperai[op] || "0",
-
-opzioni.assenza ? "si" : "no",
-
-opzioni.assenzaDa || "",
-
-opzioni.assenzaA || "",
-
-opzioni.ferie ? "si" : "no",
-
-opzioni.ferieDa || "",
-
-opzioni.ferieA || "",
-
-opzioni.malattia ? "si" : "no",
-
-opzioni.malattiaDa || "",
-
-opzioni.malattiaA || ""
-
-];
-
-
-
-listaRigheOperai.push(riga);
-
-
-
-});
-
-
-
-
-
-let giornata = [
-
-testoSicuro(document.getElementById("data").value),
-
-testoSicuro(document.getElementById("cliente").value),
-
-testoSicuro(document.getElementById("cantiere").value),
-
-listaSicura(furgoniSelezionati),
-
-testoSicuro(document.getElementById("guidatore").value),
-
-testoSicuro(document.getElementById("ore").value),
-
-testoSicuro(document.getElementById("note").value),
-Array.isArray(operaiCantiere)
-? operaiCantiere
-: [],
-
-Array.isArray(listaRigheOperai)
-? listaRigheOperai
-: []
-
-];
-
-
-
-
-
-db.ref("lavoro/giornate").once("value", snapshot => {
-
-
-
-
-let lista = listaSicura(snapshot.val());
-
-
-while(giornata.length < 9){
-
-giornata.push([]);
+  throw new Error(
+    "Formato giornate non riconosciuto. " +
+    "Salvataggio annullato per proteggere i dati."
+  );
 
 }
 
-lista.push(giornata);
+/* ========================================
+   TESTO SICURO
+======================================== */
 
+function testoSicuro(v) {
 
+  if (v == null) {
+    return "";
+  }
 
-db.ref("lavoro/giornate").set(lista);
-
-alert("GIORNATA SALVATA");
-  filtraOperaio();
-  operaiCantiere = [];
-furgoniSelezionati = [];
-datiOperai = {};
-
-aggiornaOperaiAggiunti();
-
-document.getElementById("data").value = "";
-document.getElementById("cliente").value = "";
-document.getElementById("cantiere").value = "";
-document.getElementById("ore").value = "";
-document.getElementById("note").value = "";
-
-});
-}
-
-
-
-
-function filtraOperaio(){
-
-let op = document.getElementById("filtroOperaio").value || "";
-
-db.ref("lavoro/giornate").once("value", snapshot => {
-
-
-let dati = listaSicura(snapshot.val());
-
-let sx = "";
-let dx = "";
-
-dati.forEach(g => {
-
-
-let furgoni = Array.isArray(g[3]) ? g[3].join(", ") : "";
-let listaOperai = Array.isArray(g[7]) ? g[7] : [];
-let listaRighe = Array.isArray(g[8]) ? g[8] : [];
-
-if(listaOperai.includes(op)){
-
-sx +=
-"----------------\n" +
-"DATA       : " + (g[0] || "") + "\n" +
-"CLIENTE    : " + (g[1] || "") + "\n" +
-"CANTIERE   : " + (g[2] || "") + "\n" +
-"FURGONI    : " + furgoni + "\n" +
-"GUIDATORE  : " + (g[4] || "") + "\n" +
-"ORE        : " + (g[5] || "") + "\n" +
-"NOTE       : " + (g[6] || "") + "\n\n";
-
-listaRighe.forEach(riga => {
-
-if(riga[0] == op){
-
-dx +=
-"----------------\n" +
-"NOME       : " + (riga[0] || "") + "\n" +
-"PAGA       : " + (riga[1] || "") + "\n" +
-"TRASFERTA  : " + (riga[2] == "si" ? riga[3] : "no") + "\n" +
-"ASSENZA    : " + (riga[4] == "si" ? riga[5] + " -> " + riga[6] : "no") + "\n" +
-"FERIE      : " + (riga[7] == "si" ? riga[8] + " -> " + riga[9] : "no") + "\n" +
-"MALATTIA   : " + (riga[10] == "si" ? riga[11] + " -> " + riga[12] : "no") + "\n\n";
+  return String(v);
 
 }
 
-});
+/* ========================================
+   TESTO SICURO PER HTML
+======================================== */
+
+function escapeHtml(v) {
+
+  return String(v).replace(
+    /[&<>"']/g,
+    c => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[c])
+  );
 
 }
 
-});
+/* ========================================
+   AGGIUNGI OPERAIO
+======================================== */
 
-document.getElementById("labelSinistra").innerText = sx;
-document.getElementById("labelDestra").innerText = dx;
+function aggiungiOperaio() {
 
-});
+  let nome =
+    document.getElementById("nomeOperaio")
+      .value.trim();
+
+  if (nome === "") {
+    return;
+  }
+
+  db.ref("lavoro/operai")
+    .once("value", snapshot => {
+
+      let lista =
+        listaSicura(snapshot.val());
+
+      if (!lista.includes(nome)) {
+        lista.push(nome);
+      }
+
+      return db.ref("lavoro/operai")
+        .set(lista);
+
+    })
+
+    .catch(error => {
+
+      alert(
+        "Errore salvataggio operaio: " +
+        error.message
+      );
+
+    });
 
 }
+
+/* ========================================
+   CARICA OPERAI
+======================================== */
+
+function caricaOperai() {
+
+  db.ref("lavoro/operai")
+    .on("value", snapshot => {
+
+      let dati =
+        listaSicura(snapshot.val())
+          .filter(x => x != null);
+
+      let html = "";
+
+      dati.forEach(op => {
+
+        db.ref("lavoro/paga_" + op)
+          .on("value", s => {
+
+            pagaOperai[op] =
+              s.val() || "0";
+
+          });
+
+        db.ref("lavoro/trasferta_" + op)
+          .on("value", s => {
+
+            trasfertaOperai[op] =
+              s.val() || "0";
+
+          });
+
+        html +=
+          `<option value="${escapeHtml(op)}">` +
+          `${escapeHtml(op)}</option>`;
+
+      });
+
+      let precedente =
+        document.getElementById("filtroOperaio")
+          .value;
+
+      document.getElementById("operaioModifica")
+        .innerHTML = html;
+
+      document.getElementById("selettoreOperai")
+        .innerHTML = html;
+
+      document.getElementById("filtroOperaio")
+        .innerHTML = html;
+
+      if (dati.includes(precedente)) {
+
+        document.getElementById("filtroOperaio")
+          .value = precedente;
+
+      }
+
+      filtraOperaio();
+
+    });
+
+}
+
+/* ========================================
+   CARICA FURGONI
+======================================== */
+
+function caricaFurgoni() {
+
+  db.ref("lavoro/furgoni")
+    .on("value", snapshot => {
+
+      let dati =
+        listaSicura(snapshot.val())
+          .filter(x => x != null);
+
+      furgoniCantiere = dati;
+
+      let html = "";
+
+      dati.forEach(f => {
+
+        html +=
+          `<option value="${escapeHtml(f)}">` +
+          `${escapeHtml(f)}</option>`;
+
+      });
+
+      document.getElementById("selettoreFurgoni")
+        .innerHTML = html;
+
+    });
+
+}
+
+/* ========================================
+   SALVA PAGA E TRASFERTA
+======================================== */
+
+function salvaPagaTrasferta() {
+
+  let nome =
+    document.getElementById("operaioModifica")
+      .value;
+
+  if (!nome) {
+    return;
+  }
+
+  let paga =
+    document.getElementById("paga").value;
+
+  let trasferta =
+    document.getElementById("trasfertaValore")
+      .value;
+
+  db.ref("lavoro/paga_" + nome)
+    .set(paga);
+
+  db.ref("lavoro/trasferta_" + nome)
+    .set(trasferta);
+
+}
+
+/* ========================================
+   ELIMINA OPERAIO
+======================================== */
+
+function eliminaOperaio() {
+
+  let nome =
+    document.getElementById("operaioModifica")
+      .value;
+
+  if (!nome) {
+
+    alert("SELEZIONA OPERAIO");
+    return;
+
+  }
+
+  if (!confirm("Eliminare " + nome + " ?")) {
+    return;
+  }
+
+  db.ref("lavoro/operai")
+    .once("value")
+
+    .then(snapshot => {
+
+      let lista =
+        listaSicura(snapshot.val());
+
+      let nuovaLista =
+        lista.filter(x => x !== nome);
+
+      return db.ref("lavoro/operai")
+        .set(JSON.stringify(nuovaLista));
+
+    })
+
+    .then(() => {
+
+      alert("OPERAIO ELIMINATO");
+
+    })
+
+    .catch(error => {
+
+      alert(
+        "Errore eliminazione: " +
+        error.message
+      );
+
+    });
+
+}
+
+/* ========================================
+   CONFERMA SETUP
+======================================== */
+
+function confermaSetup() {
+
+  db.ref("lavoro/setup_ok")
+    .set(true)
+
+    .then(() => {
+
+      alert("SETUP CONFERMATO");
+
+    });
+
+}
+
+/* ========================================
+   AGGIUNGI OPERAIO AL CANTIERE
+======================================== */
+
+function aggiungiOperaioCantiere() {
+
+  let op =
+    document.getElementById("selettoreOperai")
+      .value;
+
+  if (
+    op &&
+    !operaiCantiere.includes(op)
+  ) {
+
+    operaiCantiere.push(op);
+
+  }
+
+  aggiornaOperaiAggiunti();
+
+}
+
+/* ========================================
+   AGGIORNA OPERAI AGGIUNTI
+======================================== */
+
+function aggiornaOperaiAggiunti() {
+
+  let html = "";
+
+  operaiCantiere.forEach(op => {
+
+    html +=
+      `<option value="${escapeHtml(op)}">` +
+      `${escapeHtml(op)}</option>`;
+
+  });
+
+  document.getElementById("operaiAggiunti")
+    .innerHTML = html;
+
+  document.getElementById("guidatore")
+    .innerHTML = html;
+
+}
+
+/* ========================================
+   AGGIUNGI FURGONE
+======================================== */
+
+function aggiungiFurgone() {
+
+  let f =
+    document.getElementById("furgoneInput")
+      .value.trim();
+
+  if (f === "") {
+    return;
+  }
+
+  db.ref("lavoro/furgoni")
+    .once("value", snapshot => {
+
+      let lista =
+        listaSicura(snapshot.val());
+
+      let esiste = lista.some(x =>
+
+        String(x).toLowerCase() ===
+        f.toLowerCase()
+
+      );
+
+      if (!esiste) {
+
+        lista.push(f);
+
+        return db.ref("lavoro/furgoni")
+          .set(lista);
+
+      }
+
+    })
+
+    .then(() => {
+
+      if (!furgoniSelezionati.includes(f)) {
+
+        furgoniSelezionati.push(f);
+
+      }
+
+      document.getElementById("furgoneInput")
+        .value = "";
+
+    })
+
+    .catch(error => {
+
+      alert(
+        "Errore furgone: " +
+        error.message
+      );
+
+    });
+
+}
+
+/* ========================================
+   OPZIONI OPERAIO
+======================================== */
+
+function apriOpzioniOperaio() {
+
+  let div =
+    document.getElementById("opzioniOperaio");
+
+  div.style.display =
+    div.style.display === "block"
+      ? "none"
+      : "block";
+
+}
+
+/* ========================================
+   SALVA OPZIONI OPERAIO
+======================================== */
+
+function salvaOpzioniOperaio() {
+
+  let nome =
+    document.getElementById("operaiAggiunti")
+      .value;
+
+  if (!nome) {
+    return;
+  }
+
+  datiOperai[nome] = {
+
+    trasferta:
+      document.getElementById("flagTrasferta")
+        .checked,
+
+    assenza:
+      document.getElementById("flagAssenza")
+        .checked,
+
+    assenzaDa:
+      document.getElementById("assenzaDa")
+        .value,
+
+    assenzaA:
+      document.getElementById("assenzaA")
+        .value,
+
+    ferie:
+      document.getElementById("flagFerie")
+        .checked,
+
+    ferieDa:
+      document.getElementById("ferieDa")
+        .value,
+
+    ferieA:
+      document.getElementById("ferieA")
+        .value,
+
+    malattia:
+      document.getElementById("flagMalattia")
+        .checked,
+
+    malattiaDa:
+      document.getElementById("malattiaDa")
+        .value,
+
+    malattiaA:
+      document.getElementById("malattiaA")
+        .value
+
+  };
+
+}
+
+/* ========================================
+   SALVA GIORNATA
+======================================== */
+
+function salvaGiornata() {
+
+  if (salvataggioInCorso) {
+    return;
+  }
+
+  if (operaiCantiere.length === 0) {
+
+    alert("AGGIUNGI ALMENO UN OPERAIO");
+    return;
+
+  }
+
+  let listaRigheOperai = [];
+
+  operaiCantiere.forEach(op => {
+
+    let opzioni =
+      datiOperai[op] || {};
+
+    let riga = [
+
+      op,
+
+      pagaOperai[op] || "0",
+
+      opzioni.trasferta ? "si" : "no",
+
+      trasfertaOperai[op] || "0",
+
+      opzioni.assenza ? "si" : "no",
+
+      opzioni.assenzaDa || "",
+
+      opzioni.assenzaA || "",
+
+      opzioni.ferie ? "si" : "no",
+
+      opzioni.ferieDa || "",
+
+      opzioni.ferieA || "",
+
+      opzioni.malattia ? "si" : "no",
+
+      opzioni.malattiaDa || "",
+
+      opzioni.malattiaA || ""
+
+    ];
+
+    listaRigheOperai.push(riga);
+
+  });
+
+  let giornata = [
+
+    testoSicuro(
+      document.getElementById("data").value
+    ),
+
+    testoSicuro(
+      document.getElementById("cliente").value
+    ),
+
+    testoSicuro(
+      document.getElementById("cantiere").value
+    ),
+
+    [...furgoniSelezionati],
+
+    testoSicuro(
+      document.getElementById("guidatore").value
+    ),
+
+    testoSicuro(
+      document.getElementById("ore").value
+    ),
+
+    testoSicuro(
+      document.getElementById("note").value
+    ),
+
+    [...operaiCantiere],
+
+    listaRigheOperai
+
+  ];
+
+  salvataggioInCorso = true;
+
+  let pulsante =
+    document.getElementById("btnSalvaGiornata");
+
+  pulsante.disabled = true;
+
+  let erroreFormato = null;
+
+  db.ref("lavoro/giornate")
+    .transaction(current => {
+
+      let lista;
+
+      try {
+
+        lista =
+          listaGiornatePerSalvataggio(current);
+
+      } catch (error) {
+
+        erroreFormato = error;
+
+        return;
+
+      }
+
+      lista.push(giornata);
+
+      return lista;
+
+    }, undefined, false)
+
+    .then(result => {
+
+      if (!result.committed) {
+
+        throw (
+          erroreFormato ||
+          new Error("Salvataggio annullato")
+        );
+
+      }
+
+      alert("GIORNATA SALVATA");
+
+      operaiCantiere = [];
+      furgoniSelezionati = [];
+      datiOperai = {};
+
+      aggiornaOperaiAggiunti();
+
+      [
+        "data",
+        "cliente",
+        "cantiere",
+        "ore",
+        "note"
+      ].forEach(id => {
+
+        document.getElementById(id).value = "";
+
+      });
+
+    })
+
+    .catch(error => {
+
+      console.error(error);
+
+      alert(
+        "ERRORE SALVATAGGIO: " +
+        error.message
+      );
+
+    })
+
+    .finally(() => {
+
+      salvataggioInCorso = false;
+
+      pulsante.disabled = false;
+
+    });
+
+}
+
+/* ========================================
+   AGGIORNAMENTO AUTOMATICO FIREBASE
+======================================== */
+
+function avviaAscoltoGiornate() {
+
+  if (ascoltoGiornateAttivo) {
+    return;
+  }
+
+  ascoltoGiornateAttivo = true;
+
+  db.ref("lavoro/giornate")
+    .on("value", snapshot => {
+
+      giornateFirebase =
+        listaSicura(snapshot.val());
+
+      filtraOperaio();
+
+    }, error => {
+
+      console.error(error);
+
+      alert(
+        "Errore lettura giornate: " +
+        error.message
+      );
+
+    });
+
+}
+
+/* ========================================
+   SCREEN 2 - FILTRO OPERAIO
+======================================== */
+
+function filtraOperaio() {
+
+  let op =
+    document.getElementById("filtroOperaio")
+      .value || "";
+
+  let sx = "";
+  let dx = "";
+
+  giornateFirebase.forEach(g => {
+
+    if (!Array.isArray(g)) {
+      return;
+    }
+
+    let furgoni =
+      Array.isArray(g[3])
+        ? g[3].join(", ")
+        : testoSicuro(g[3]);
+
+    let listaOperai =
+      Array.isArray(g[7])
+        ? g[7]
+        : [];
+
+    let listaRighe =
+      Array.isArray(g[8])
+        ? g[8]
+        : [];
+
+    if (!listaOperai.includes(op)) {
+      return;
+    }
+
+    sx +=
+      "----------------\n" +
+      "DATA       : " + (g[0] || "") + "\n" +
+      "CLIENTE    : " + (g[1] || "") + "\n" +
+      "CANTIERE   : " + (g[2] || "") + "\n" +
+      "FURGONI    : " + furgoni + "\n" +
+      "GUIDATORE  : " + (g[4] || "") + "\n" +
+      "ORE        : " + (g[5] || "") + "\n" +
+      "NOTE       : " + (g[6] || "") + "\n\n";
+
+    listaRighe.forEach(riga => {
+
+      if (!Array.isArray(riga)) {
+        return;
+      }
+
+      if (riga[0] !== op) {
+        return;
+      }
+
+      dx +=
+        "----------------\n" +
+
+        "NOME       : " +
+        (riga[0] || "") + "\n" +
+
+        "PAGA       : " +
+        (riga[1] || "") + "\n" +
+
+        "TRASFERTA  : " +
+        (
+          riga[2] === "si"
+            ? riga[3]
+            : "no"
+        ) + "\n" +
+
+        "ASSENZA    : " +
+        (
+          riga[4] === "si"
+            ? riga[5] + " -> " + riga[6]
+            : "no"
+        ) + "\n" +
+
+        "FERIE      : " +
+        (
+          riga[7] === "si"
+            ? riga[8] + " -> " + riga[9]
+            : "no"
+        ) + "\n" +
+
+        "MALATTIA   : " +
+        (
+          riga[10] === "si"
+            ? riga[11] + " -> " + riga[12]
+            : "no"
+        ) + "\n\n";
+
+    });
+
+  });
+
+  document.getElementById("labelSinistra")
+    .innerText = sx;
+
+  document.getElementById("labelDestra")
+    .innerText = dx;
+
+}
+
 </script>
 
 </body>
