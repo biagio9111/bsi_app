@@ -1006,12 +1006,14 @@ let op = document.getElementById("filtroOperaio").value || "";
 
 db.ref("lavoro/giornate").once("value", snapshot => {
 
-let dati = snapshot.val() || [];
+
+let dati = listaSicura(snapshot.val());
 
 let sx = "";
 let dx = "";
 
 dati.forEach(g => {
+
 
 let furgoni = Array.isArray(g[3]) ? g[3].join(", ") : "";
 let listaOperai = Array.isArray(g[7]) ? g[7] : [];
