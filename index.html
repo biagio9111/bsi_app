@@ -964,15 +964,9 @@ db.ref("lavoro/giornate").once("value", snapshot => {
 
 
 
-let lista = snapshot.val() || [];
 
+let lista = listaSicura(snapshot.val());
 
-
-if(!Array.isArray(lista)){
-
-lista = [];
-
-}
 
 while(giornata.length < 9){
 
